@@ -3,6 +3,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 
 import Form from "./components/Form/Form";
 
+// FONTS - COMFORTAA & MONTSERRAT
+
 const useStyles = makeStyles((theme) => ({
   appContainer: {},
 }));
