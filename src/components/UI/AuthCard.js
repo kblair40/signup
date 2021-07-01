@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
   authCard: {
     height: "50vh",
     width: "40vw",
-    padding: "1rem",
   },
   cardHeader: {
     fontSize: "1.8rem",
@@ -22,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Montserrat",
     fontWeight: "700",
   },
-  cardContent: {},
+  cardContent: {
+    padding: "1rem 3rem",
+  },
   [theme.breakpoints.down("sm")]: {
     authCard: {
       width: "60vw",

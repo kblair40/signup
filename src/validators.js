@@ -18,8 +18,8 @@ export default const validators = {
         // must be at least 8 characters and no more than 16 characters
         password.length >= 8 && password.length <= 16
     ),
+    passwordsMatch: (pwd1, pwd2) => (
+        pwd1 === pwd2
+    )
 }
 
-const validateUsernameCharacters = (username) => {
-    const regex = /^[a-z0-9]$/i
-}
