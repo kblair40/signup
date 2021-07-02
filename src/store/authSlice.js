@@ -91,8 +91,6 @@ const authSlice = createSlice({
       state.confirmPasswordInput = "";
       // I MAY ALSO NEED TO RESET ALL ERRORS TO FALSE
     },
-    // emailInput: "",
-    // emailHasError: false,
   },
 });
 

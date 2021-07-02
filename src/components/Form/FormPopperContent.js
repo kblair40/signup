@@ -11,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
+    padding: 0,
+    margin: 0,
   },
   showValidity: {
     fontSize: ".8rem",
@@ -23,14 +25,19 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   rule: {
-    marginLeft: "1rem",
+    margin: "0 0 0 1rem",
+    // marginLeft: "1rem",
     fontFamily: "Montserrat",
   },
   errorIcon: {
     color: "#ff4244",
+    margin: 0,
+    padding: 0,
   },
   validIcon: {
     color: "#5dca36",
+    margin: 0,
+    padding: 0,
   },
 }));
 const FormPopperContent = ({ targetName }) => {
@@ -93,6 +100,7 @@ const FormPopperContent = ({ targetName }) => {
             </div>
           </div>
         ) : targetName === "password" ? (
+          // PASSWORD
           <div className={classes.showValidity}>
             <div className={classes.validationRow}>
               {passwordHasInvalidLength ? (
@@ -117,6 +125,7 @@ const FormPopperContent = ({ targetName }) => {
             </div>
           </div>
         ) : (
+          // CONFIRM PASSWORD
           <div className={classes.showValidity}>
             <div className={classes.validationRow}>
               {!passwordsMatch ? (

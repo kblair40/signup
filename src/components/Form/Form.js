@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    // background: "rgba(0,0,0,0.2)",
   },
   form: {
     width: "100%",
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submitBtnRoot: {
     background: "#ff4244",
+    fontFamily: "Montserrat",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.down("xs")]: {},
