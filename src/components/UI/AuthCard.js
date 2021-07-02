@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
   authCard: {
     height: "50vh",
+    minHeight: "28rem",
     width: "40vw",
     minWidth: "20rem",
     maxWidth: "30rem",
@@ -25,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem 0",
   },
   cardContent: {
-    padding: "1rem 3rem",
+    padding: "1rem 2rem",
   },
   [theme.breakpoints.down("sm")]: {
     authCard: {
       width: "65vw",
-      padding: ".5rem",
     },
   },
   [theme.breakpoints.down("xs")]: {
@@ -45,7 +45,7 @@ const AuthCard = (props) => {
   return (
     <Backdrop>
       <div className={classes.authCardContainer}>
-        <Card className={classes.authCard}>
+        <Card elevation={24} classes={{ root: classes.authCard }}>
           <div className={classes.cardHeader}>Sign Up</div>
           <div className={classes.cardContent}>{props.children}</div>
         </Card>

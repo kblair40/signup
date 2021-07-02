@@ -1,6 +1,6 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Fade from "@material-ui/core/Fade";
+// import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 
@@ -11,17 +11,17 @@ const useStyles = makeStyles((theme) => ({
   paperRoot: {
     minWidth: "10rem",
     minHeight: "5rem",
-    // padding: ".5rem",
+    padding: "1rem",
   },
 }));
 
-const FormPopper = ({ anchorEl, open }) => {
+const FormPopper = ({ anchorEl, open, targetName }) => {
   const classes = useStyles();
   return (
     <div className={classes.popperContainer}>
-      <Popper open={open} anchorEl={anchorEl} placement="right">
+      <Popper open={true} anchorEl={anchorEl} placement="right">
         <Paper classes={{ root: classes.paperRoot }}>
-          <FormPopperContent />
+          <FormPopperContent anchorEl={anchorEl} targetName={targetName} />
         </Paper>
       </Popper>
     </div>

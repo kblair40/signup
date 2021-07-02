@@ -22,32 +22,29 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%",
     height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   formRow: {
-    // width: "100%",
-    margin: ".8rem 0",
+    margin: ".75rem 0",
   },
   usernameInputRoot: {
     width: "100%",
   },
-  submitBtn: {
-    alignSelf: "flex-end",
+  submitBtnRoot: {
+    background: "#ff4244",
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.down("xs")]: {},
 }));
 
-//   passwordInput: "",
-//   passwordHasInvalidLength: false,
-//   passwordHasInvalidChars: false,
-//   confirmPasswordInput: "",
-//   confirmPasswordHasInvalidLength: false,
-//   confirmPasswordHasInvalidChars: false,
-
 const Form = () => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
+  const [targetName, setTargetName] = useState("");
+
   const dispatch = useDispatch();
   const usernameInput = useSelector((state) => state.auth.usernameInput);
   const usernameHasInvalidLength = useSelector(
@@ -74,6 +71,7 @@ const Form = () => {
   const handleKeyPress = (event) => {
     console.log("TARGET:", event.currentTarget);
     setAnchorEl(event.currentTarget);
+    setTargetName(event.target.name);
     setOpen(true);
   };
 
@@ -109,13 +107,14 @@ const Form = () => {
 
   return (
     <AuthCard>
-      <FormPopper open={open} anchorEl={anchorEl} />
+      <FormPopper open={open} anchorEl={anchorEl} targetName={targetName} />
       <div className={classes.formContainer}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.formRow}>
             <InputLabel>Username</InputLabel>
             <Input
               onChange={handleUsernameChange}
+              name="username"
               classes={{ root: classes.usernameInputRoot }}
               type="text"
               inputProps={{
@@ -130,6 +129,7 @@ const Form = () => {
             <InputLabel>Email Address</InputLabel>
             <Input
               onChange={handleEmailChange}
+              name="email"
               classes={{ root: classes.emailInputRoot }}
               type="text"
               inputProps={{
@@ -143,6 +143,7 @@ const Form = () => {
           <div className={classes.formRow}>
             <InputLabel>Password</InputLabel>
             <Input
+              name="password"
               onChange={handlePasswordChange}
               classes={{ root: classes.passwordInputRoot }}
               type="text"
@@ -157,6 +158,7 @@ const Form = () => {
           <div className={classes.formRow}>
             <InputLabel>Confirm Password</InputLabel>
             <Input
+              name="confirmPassword"
               onChange={handleConfirmPasswordChange}
               classes={{ root: classes.confirmPasswordInputRoot }}
               type="text"
@@ -170,7 +172,13 @@ const Form = () => {
           </div>
 
           <div className={`${classes.formRow} ${classes.submitBtn}`}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
+            <Button
+              classes={{ root: classes.submitBtnRoot }}
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
               Create Account
             </Button>
           </div>

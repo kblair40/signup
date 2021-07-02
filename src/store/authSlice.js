@@ -45,7 +45,7 @@ const authSlice = createSlice({
       const isInvalidLength = !validators.usernameLength(username);
       const hasInvalidChars = !validators.usernameChars(username);
       console.log("USERNAME");
-      console.log("usernameInput:", username);
+      // console.log("usernameInput:", username);
       console.log("isInvalidLength:", isInvalidLength);
       console.log("hasInvalidChars:", hasInvalidChars, "\n\n");
       state.usernameInput = username;
@@ -56,7 +56,7 @@ const authSlice = createSlice({
       const { email } = action.payload;
       const isValidFormat = validators.emailChars(email);
       console.log("Email");
-      console.log("emailInput:", email);
+      // console.log("emailInput:", email);
       console.log("isValidFormat:", isValidFormat, "\n\n");
       state.emailInput = email;
       state.emailHasError = isValidFormat;
@@ -66,7 +66,7 @@ const authSlice = createSlice({
       const isInvalidLength = !validators.passwordLength(password);
       const hasInvalidChars = !validators.passwordChars(password);
       console.log("Password");
-      console.log("passwordInput:", password);
+      // console.log("passwordInput:", password);
       console.log("isInvalidLength:", isInvalidLength);
       console.log("hasInvalidChars:", hasInvalidChars, "\n\n");
       state.passwordInput = password;
