@@ -4,11 +4,11 @@ const validators = {
   usernameLength: (username) =>
     // must be at least 7 characters and no more than 15 characters
     username.length >= 7 && username.length <= 15,
-  usernameCharacters: (username) => {
+  usernameChars: (username) => {
     const regex = /^[a-z0-9]+$/i;
     return regex.test(username);
   },
-  emailCharacters: (email) => {
+  emailChars: (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   },
@@ -31,8 +31,9 @@ const initialAuthState = {
   passwordHasInvalidLength: false,
   passwordHasInvalidChars: false,
   confirmPasswordInput: "",
-  confirmPasswordHasInvalidLength: false,
-  confirmPasswordHasInvalidChars: false,
+  // confirmPasswordHasInvalidLength: false,
+  // confirmPasswordHasInvalidChars: false,
+  PasswordsMatch: false,
 };
 
 const authSlice = createSlice({
@@ -42,7 +43,7 @@ const authSlice = createSlice({
     handleUsernameChange(state, action) {
       const { username } = action.payload;
       const isInvalidLength = !validators.usernameLength(username);
-      const hasInvalidChars = !validators.usernameCharacters(username);
+      const hasInvalidChars = !validators.usernameChars(username);
       console.log("USERNAME");
       console.log("usernameInput:", username);
       console.log("isInvalidLength:", isInvalidLength);
@@ -53,12 +54,35 @@ const authSlice = createSlice({
     },
     handleEmailChange(state, action) {
       const { email } = action.payload;
-      const isValidFormat = validators.emailCharacters(email);
+      const isValidFormat = validators.emailChars(email);
       console.log("Email");
       console.log("emailInput:", email);
       console.log("isValidFormat:", isValidFormat, "\n\n");
       state.emailInput = email;
       state.emailHasError = isValidFormat;
+    },
+    handlePasswordChange(state, action) {
+      const { password } = action.payload;
+      const isInvalidLength = !validators.passwordLength(password);
+      const hasInvalidChars = !validators.passwordChars(password);
+      console.log("Password");
+      console.log("passwordInput:", password);
+      console.log("isInvalidLength:", isInvalidLength);
+      console.log("hasInvalidChars:", hasInvalidChars, "\n\n");
+      state.passwordInput = password;
+      state.passwordHasInvalidChars = hasInvalidChars;
+      state.passwordHasInvalidLength = isInvalidLength;
+    },
+    handleConfirmPasswordChange(state, action) {
+      const { confirmPassword } = action.payload;
+      const passwordsMatch = validators.passwordsMatch(
+        confirmPassword,
+        state.passwordInput
+      );
+      console.log("confirmPassword:", confirmPassword);
+      console.log("passwordsMatch:", passwordsMatch, "\n\n");
+      state.confirmPasswordInput = confirmPassword;
+      state.passwordsMatch = passwordsMatch;
     },
     clearForm(state) {
       state.usernameInput = "";

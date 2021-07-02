@@ -17,9 +17,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    // background: "rgba(0,0,0,0.2)",
   },
   form: {
     width: "100%",
+    height: "100%",
   },
   formRow: {
     // width: "100%",
@@ -28,25 +30,24 @@ const useStyles = makeStyles((theme) => ({
   usernameInputRoot: {
     width: "100%",
   },
-
+  submitBtn: {
+    alignSelf: "flex-end",
+  },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.down("xs")]: {},
 }));
-// usernameInput: "",
-//   usernameHasInvalidLength: false,
-//   usernameHasInvalidChars: false,
-//   emailInput: "",
-//   emailHasError: false,
+
 //   passwordInput: "",
 //   passwordHasInvalidLength: false,
 //   passwordHasInvalidChars: false,
 //   confirmPasswordInput: "",
 //   confirmPasswordHasInvalidLength: false,
 //   confirmPasswordHasInvalidChars: false,
+
 const Form = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const usernameInput = useSelector((state) => state.auth.usernameInput);
   const usernameHasInvalidLength = useSelector(
@@ -57,6 +58,18 @@ const Form = () => {
   );
   const emailInput = useSelector((state) => state.auth.emailInput);
   const emailHasError = useSelector((state) => state.auth.emailHasError);
+
+  const passwordInput = useSelector((state) => state.auth.passwordInput);
+  const passwordHasInvalidChars = useSelector(
+    (state) => state.auth.passwordHasInvalidChars
+  );
+  const passwordHasInvalidLength = useSelector(
+    (state) => state.auth.passwordHasInvalidLength
+  );
+  const confirmPasswordInput = useSelector(
+    (state) => state.auth.confirmPasswordInput
+  );
+  const passwordsMatch = useSelector((state) => state.auth.passwordsMatch);
 
   const handleKeyPress = (event) => {
     console.log("TARGET:", event.currentTarget);
@@ -75,6 +88,18 @@ const Form = () => {
 
   const handleEmailChange = (e) => {
     dispatch(authActions.handleEmailChange({ email: e.target.value }));
+  };
+
+  const handlePasswordChange = (e) => {
+    dispatch(authActions.handlePasswordChange({ password: e.target.value }));
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    dispatch(
+      authActions.handleConfirmPasswordChange({
+        confirmPassword: e.target.value,
+      })
+    );
   };
 
   const handleSubmit = (e) => {
@@ -115,8 +140,36 @@ const Form = () => {
               fullWidth
             />
           </div>
-
           <div className={classes.formRow}>
+            <InputLabel>Password</InputLabel>
+            <Input
+              onChange={handlePasswordChange}
+              classes={{ root: classes.passwordInputRoot }}
+              type="text"
+              inputProps={{
+                onKeyPress: handleKeyPress,
+                onBlur: handleInputblur,
+              }}
+              value={passwordInput}
+              fullWidth
+            />
+          </div>
+          <div className={classes.formRow}>
+            <InputLabel>Confirm Password</InputLabel>
+            <Input
+              onChange={handleConfirmPasswordChange}
+              classes={{ root: classes.confirmPasswordInputRoot }}
+              type="text"
+              inputProps={{
+                onKeyPress: handleKeyPress,
+                onBlur: handleInputblur,
+              }}
+              value={confirmPasswordInput}
+              fullWidth
+            />
+          </div>
+
+          <div className={`${classes.formRow} ${classes.submitBtn}`}>
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Create Account
             </Button>

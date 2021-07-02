@@ -14,19 +14,22 @@ const useStyles = makeStyles((theme) => ({
   authCard: {
     height: "50vh",
     width: "40vw",
+    minWidth: "20rem",
+    maxWidth: "30rem",
   },
   cardHeader: {
     fontSize: "1.8rem",
     textAlign: "center",
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat, sans-serif",
     fontWeight: "700",
+    margin: "1rem 0",
   },
   cardContent: {
     padding: "1rem 3rem",
   },
   [theme.breakpoints.down("sm")]: {
     authCard: {
-      width: "60vw",
+      width: "65vw",
       padding: ".5rem",
     },
   },
