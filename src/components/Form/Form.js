@@ -33,6 +33,16 @@ const useStyles = makeStyles((theme) => ({
     background: "#ff4244",
     fontFamily: "Montserrat",
   },
+  inputNotTouched: {
+    width: "100%",
+    "&:before": {
+      borderColor: "#0c0c0d",
+    },
+    "&:after": {
+      borderColor: "#0c0c0d",
+    },
+  },
+
   inputValid: {
     width: "100%",
     "&:before": {
@@ -60,6 +70,14 @@ const Form = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [targetName, setTargetName] = useState("");
+  const [hasBeenTouched, setHasBeenTouched] = useState({
+    username: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const [confirmPasswordHasBeenTouched, setConfirmPasswordHasBeenTouched] =
+    useState(false);
 
   const dispatch = useDispatch();
 
@@ -98,18 +116,24 @@ const Form = () => {
   };
 
   const handleUsernameChange = (e) => {
+    setHasBeenTouched((state) => ({ ...state, username: true }));
     dispatch(authActions.handleUsernameChange({ username: e.target.value }));
   };
 
   const handleEmailChange = (e) => {
+    setHasBeenTouched((state) => ({ ...state, email: true }));
+
     dispatch(authActions.handleEmailChange({ email: e.target.value }));
   };
 
   const handlePasswordChange = (e) => {
+    setHasBeenTouched((state) => ({ ...state, password: true }));
+
     dispatch(authActions.handlePasswordChange({ password: e.target.value }));
   };
 
   const handleConfirmPasswordChange = (e) => {
+    setHasBeenTouched((state) => ({ ...state, confirmPassword: true }));
     dispatch(
       authActions.handleConfirmPasswordChange({
         confirmPassword: e.target.value,
@@ -122,19 +146,10 @@ const Form = () => {
     dispatch(authActions.clearForm());
   };
 
-  const setClasses = (target) => {
-    if (target === "username") {
-      console.log("username");
-      console.log(
-        !usernameHasInvalidLength && !usernameHasInvalidChars
-          ? "Error"
-          : "Valid"
-      );
-      return !usernameHasInvalidLength && !usernameHasInvalidChars
-        ? "Error"
-        : "Valid";
-    }
-  };
+  console.log("TOUCHED STATE:", hasBeenTouched);
+  console.log(hasBeenTouched.username);
+  console.log(hasBeenTouched.email);
+  console.log(hasBeenTouched.password);
 
   return (
     <AuthCard>
@@ -147,10 +162,11 @@ const Form = () => {
               onChange={handleUsernameChange}
               name="username"
               classes={{
-                root:
-                  !usernameHasInvalidLength && !usernameHasInvalidChars
-                    ? classes.inputValid
-                    : classes.inputError,
+                root: !hasBeenTouched.username
+                  ? classes.inputNotTouched
+                  : !usernameHasInvalidLength && !usernameHasInvalidChars
+                  ? classes.inputValid
+                  : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -167,7 +183,11 @@ const Form = () => {
               onChange={handleEmailChange}
               name="email"
               classes={{
-                root: emailHasError ? classes.inputValid : classes.inputError,
+                root: !hasBeenTouched.email
+                  ? classes.inputNotTouched
+                  : emailHasError
+                  ? classes.inputValid
+                  : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -183,7 +203,13 @@ const Form = () => {
             <Input
               name="password"
               onChange={handlePasswordChange}
-              classes={{ root: classes.inputValid }}
+              classes={{
+                root: !hasBeenTouched.password
+                  ? classes.inputNotTouched
+                  : !passwordHasInvalidLength && !passwordHasInvalidChars
+                  ? classes.inputValid
+                  : classes.inputError,
+              }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,
@@ -198,7 +224,13 @@ const Form = () => {
             <Input
               name="confirmPassword"
               onChange={handleConfirmPasswordChange}
-              classes={{ root: classes.inputValid }}
+              classes={{
+                root: !hasBeenTouched.confirmPassword
+                  ? classes.inputNotTouched
+                  : passwordsMatch
+                  ? classes.inputValid
+                  : classes.inputError,
+              }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,

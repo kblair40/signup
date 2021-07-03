@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 0,
-    margin: 0,
+    margin: "1rem",
   },
   showValidity: {
     fontSize: ".8rem",
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   errorIcon: {
     color: "#ff4244",
-    margin: 0,
+    marginBottom: ".25rem",
     padding: 0,
   },
   validIcon: {
