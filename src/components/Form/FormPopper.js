@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   paperRoot: {
     minWidth: "10rem",
     minHeight: "auto",
-    padding: "1rem",
+    // padding: "1rem",
     display: "flex",
     alignItems: "center",
   },
@@ -21,8 +21,8 @@ const FormPopper = ({ anchorEl, open, targetName }) => {
   const classes = useStyles();
   return (
     // <div className={classes.popperContainer}>
-    <Popper open={open} anchorEl={anchorEl} placement="bottom-start">
-      <Paper classes={{ root: classes.paperRoot }}>
+    <Popper open={open} anchorEl={anchorEl} placement="right-end">
+      <Paper elevation={1} classes={{ root: classes.paperRoot }}>
         <FormPopperContent anchorEl={anchorEl} targetName={targetName} />
       </Paper>
     </Popper>

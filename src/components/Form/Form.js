@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
 import { authActions } from "../../store/authSlice";
+import { setClasses } from "../../helpers";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -28,12 +29,27 @@ const useStyles = makeStyles((theme) => ({
   formRow: {
     margin: ".75rem 0",
   },
-  usernameInputRoot: {
-    width: "100%",
-  },
   submitBtnRoot: {
     background: "#ff4244",
     fontFamily: "Montserrat",
+  },
+  inputValid: {
+    width: "100%",
+    "&:before": {
+      borderColor: "#5dca36",
+    },
+    "&:after": {
+      borderColor: "#5dca36",
+    },
+  },
+  inputError: {
+    width: "100%",
+    "&:before": {
+      borderColor: "#ff4244",
+    },
+    "&:after": {
+      borderColor: "#ff4244",
+    },
   },
   [theme.breakpoints.down("sm")]: {},
   [theme.breakpoints.down("xs")]: {},
@@ -46,6 +62,7 @@ const Form = () => {
   const [targetName, setTargetName] = useState("");
 
   const dispatch = useDispatch();
+
   const usernameInput = useSelector((state) => state.auth.usernameInput);
   const usernameHasInvalidLength = useSelector(
     (state) => state.auth.usernameHasInvalidLength
@@ -69,7 +86,7 @@ const Form = () => {
   const passwordsMatch = useSelector((state) => state.auth.passwordsMatch);
 
   const handleKeyPress = (event) => {
-    console.log("TARGET:", event.currentTarget);
+    // console.log("TARGET:", event.currentTarget);
     setAnchorEl(event.currentTarget);
     setTargetName(event.target.name);
     setOpen(true);
@@ -105,6 +122,20 @@ const Form = () => {
     dispatch(authActions.clearForm());
   };
 
+  const setClasses = (target) => {
+    if (target === "username") {
+      console.log("username");
+      console.log(
+        !usernameHasInvalidLength && !usernameHasInvalidChars
+          ? "Error"
+          : "Valid"
+      );
+      return !usernameHasInvalidLength && !usernameHasInvalidChars
+        ? "Error"
+        : "Valid";
+    }
+  };
+
   return (
     <AuthCard>
       <FormPopper open={open} anchorEl={anchorEl} targetName={targetName} />
@@ -115,7 +146,12 @@ const Form = () => {
             <Input
               onChange={handleUsernameChange}
               name="username"
-              classes={{ root: classes.usernameInputRoot }}
+              classes={{
+                root:
+                  !usernameHasInvalidLength && !usernameHasInvalidChars
+                    ? classes.inputValid
+                    : classes.inputError,
+              }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,
@@ -130,7 +166,9 @@ const Form = () => {
             <Input
               onChange={handleEmailChange}
               name="email"
-              classes={{ root: classes.emailInputRoot }}
+              classes={{
+                root: emailHasError ? classes.inputValid : classes.inputError,
+              }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,
@@ -145,7 +183,7 @@ const Form = () => {
             <Input
               name="password"
               onChange={handlePasswordChange}
-              classes={{ root: classes.passwordInputRoot }}
+              classes={{ root: classes.inputValid }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,
@@ -160,7 +198,7 @@ const Form = () => {
             <Input
               name="confirmPassword"
               onChange={handleConfirmPasswordChange}
-              classes={{ root: classes.confirmPasswordInputRoot }}
+              classes={{ root: classes.inputValid }}
               type="text"
               inputProps={{
                 onKeyPress: handleKeyPress,

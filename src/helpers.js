@@ -5,7 +5,7 @@ console.log("store:", store);
 
 export const getStoreState = store.subscribe(() => {
   const storeState = store.getState();
-  console.log("storeState:", storeState.auth);
+  //   console.log("storeState:", storeState.auth);
   return storeState.auth;
 });
 
@@ -16,3 +16,8 @@ export const getStoreState = store.subscribe(() => {
 //     }
 //   },
 // };
+
+export const setClasses = (input) => {
+  const storeState = getStoreState;
+  console.log("storeState:", storeState);
+};
