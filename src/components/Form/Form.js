@@ -32,6 +32,19 @@ const useStyles = makeStyles((theme) => ({
   submitBtnRoot: {
     background: "#ff4244",
     fontFamily: "Montserrat",
+    fontWeight: 600,
+    "&:hover": {
+      background: "#ff4244",
+    },
+  },
+  labelNotTouched: {
+    color: "rgba(0,0,0,0.8)",
+  },
+  labelValid: {
+    color: "#5dca36",
+  },
+  labelError: {
+    color: "#ff4244",
   },
   inputNotTouched: {
     width: "100%",
@@ -42,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#0c0c0d",
     },
   },
-
   inputValid: {
     width: "100%",
     "&:before": {
@@ -146,27 +158,33 @@ const Form = () => {
     dispatch(authActions.clearForm());
   };
 
-  console.log("TOUCHED STATE:", hasBeenTouched);
-  console.log(hasBeenTouched.username);
-  console.log(hasBeenTouched.email);
-  console.log(hasBeenTouched.password);
-
   return (
     <AuthCard>
       <FormPopper open={open} anchorEl={anchorEl} targetName={targetName} />
       <div className={classes.formContainer}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.formRow}>
-            <InputLabel>Username</InputLabel>
+            <InputLabel
+              className={
+                !hasBeenTouched.username || usernameInput === ""
+                  ? classes.labelNotTouched
+                  : !usernameHasInvalidLength && !usernameHasInvalidChars
+                  ? classes.labelValid
+                  : classes.labelError
+              }
+            >
+              Username
+            </InputLabel>
             <Input
               onChange={handleUsernameChange}
               name="username"
               classes={{
-                root: !hasBeenTouched.username
-                  ? classes.inputNotTouched
-                  : !usernameHasInvalidLength && !usernameHasInvalidChars
-                  ? classes.inputValid
-                  : classes.inputError,
+                root:
+                  !hasBeenTouched.username || usernameInput === ""
+                    ? classes.inputNotTouched
+                    : !usernameHasInvalidLength && !usernameHasInvalidChars
+                    ? classes.inputValid
+                    : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -178,16 +196,27 @@ const Form = () => {
             />
           </div>
           <div className={classes.formRow}>
-            <InputLabel>Email Address</InputLabel>
+            <InputLabel
+              className={
+                !hasBeenTouched.email || emailInput === ""
+                  ? classes.labelNotTouched
+                  : emailHasError
+                  ? classes.labelValid
+                  : classes.labelError
+              }
+            >
+              Email Address
+            </InputLabel>
             <Input
               onChange={handleEmailChange}
               name="email"
               classes={{
-                root: !hasBeenTouched.email
-                  ? classes.inputNotTouched
-                  : emailHasError
-                  ? classes.inputValid
-                  : classes.inputError,
+                root:
+                  !hasBeenTouched.email || emailInput === ""
+                    ? classes.inputNotTouched
+                    : emailHasError
+                    ? classes.inputValid
+                    : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -199,16 +228,27 @@ const Form = () => {
             />
           </div>
           <div className={classes.formRow}>
-            <InputLabel>Password</InputLabel>
+            <InputLabel
+              className={
+                !hasBeenTouched.password || passwordInput === ""
+                  ? classes.labelNotTouched
+                  : !passwordHasInvalidLength && passwordHasInvalidChars
+                  ? classes.labelValid
+                  : classes.labelError
+              }
+            >
+              Password
+            </InputLabel>
             <Input
               name="password"
               onChange={handlePasswordChange}
               classes={{
-                root: !hasBeenTouched.password
-                  ? classes.inputNotTouched
-                  : !passwordHasInvalidLength && !passwordHasInvalidChars
-                  ? classes.inputValid
-                  : classes.inputError,
+                root:
+                  !hasBeenTouched.password || passwordInput === ""
+                    ? classes.inputNotTouched
+                    : !passwordHasInvalidLength && passwordHasInvalidChars
+                    ? classes.inputValid
+                    : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -220,16 +260,27 @@ const Form = () => {
             />
           </div>
           <div className={classes.formRow}>
-            <InputLabel>Confirm Password</InputLabel>
+            <InputLabel
+              className={
+                !hasBeenTouched.confirmPassword || confirmPasswordInput === ""
+                  ? classes.labelNotTouched
+                  : passwordsMatch
+                  ? classes.labelValid
+                  : classes.labelError
+              }
+            >
+              Confirm Password
+            </InputLabel>
             <Input
               name="confirmPassword"
               onChange={handleConfirmPasswordChange}
               classes={{
-                root: !hasBeenTouched.confirmPassword
-                  ? classes.inputNotTouched
-                  : passwordsMatch
-                  ? classes.inputValid
-                  : classes.inputError,
+                root:
+                  !hasBeenTouched.confirmPassword || confirmPasswordInput === ""
+                    ? classes.inputNotTouched
+                    : passwordsMatch
+                    ? classes.inputValid
+                    : classes.inputError,
               }}
               type="text"
               inputProps={{
@@ -248,6 +299,7 @@ const Form = () => {
               variant="contained"
               color="primary"
               fullWidth
+              disableFocusRipple
             >
               Create Account
             </Button>
