@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
+import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
 import { setClasses } from "../../helpers";
 
@@ -305,6 +306,7 @@ const Form = () => {
             </Button>
           </div>
         </form>
+        <SocialLinks />
       </div>
     </AuthCard>
   );

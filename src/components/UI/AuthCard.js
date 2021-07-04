@@ -6,13 +6,15 @@ import Backdrop from "./Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   authCardContainer: {
-    height: "100%",
+    // height: "100%",
+    height: "80vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   authCard: {
-    height: "50vh",
+    height: "100%",
+    maxHeight: "32rem",
     minHeight: "28rem",
     width: "40vw",
     minWidth: "20rem",
