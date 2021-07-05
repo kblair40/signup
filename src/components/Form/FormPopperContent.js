@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 0,
-    margin: "1rem",
+    margin: ".5rem",
   },
   showValidity: {
     fontSize: ".8rem",
@@ -26,12 +26,11 @@ const useStyles = makeStyles((theme) => ({
   },
   rule: {
     margin: "0 0 0 1rem",
-    // marginLeft: "1rem",
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat, sans-serif",
   },
   errorIcon: {
     color: "#ff4244",
-    marginBottom: ".25rem",
+    margin: 0,
     padding: 0,
   },
   validIcon: {
@@ -141,17 +140,8 @@ const FormPopperContent = ({ targetName }) => {
     );
   };
 
-  console.log("targetName:", targetName);
   return (
-    <div className={classes.formPopperContentContainer}>
-      {/* <div>
-        <CancelOutlinedIcon />
-      </div> */}
-      {/* <div className={classes.showValidity}>
-        <p>Valid Length: {usernameHasInvalidLength ? "False" : "True"}</p>
-      </div> */}
-      {popperContent()}
-    </div>
+    <div className={classes.formPopperContentContainer}>{popperContent()}</div>
   );
 };
 

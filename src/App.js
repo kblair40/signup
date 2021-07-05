@@ -1,7 +1,9 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import Form from "./components/Form/Form";
+import SignupForm from "./components/Form/SignupForm";
+import FormContainer from "./components/Form/FormContainer";
 
 // COLORS:
 // Success: #5dca36
@@ -18,7 +20,21 @@ function App() {
   const classes = useStyles();
   return (
     <div className="App">
-      <Form />
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/signup" />
+          {/* <SignupForm /> */}
+        </Route>
+        <Route to="/signup" exact>
+          <FormContainer />
+        </Route>
+        <Route to="/login" exact>
+          <FormContainer />
+        </Route>
+        <Route to="*">
+          <Redirect to="/login" />
+        </Route>
+      </Switch>
     </div>
   );
 }

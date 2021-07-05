@@ -3,6 +3,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,7 +11,6 @@ import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
-import { setClasses } from "../../helpers";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -25,14 +25,37 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    alignItems: "center",
+    "& label": {
+      fontFamily: "Montserrat, sans-serif",
+    },
+    "& input": {
+      fontFamily: "Montserrat, sans-serif",
+      color: "#0c0c0d",
+    },
   },
   formRow: {
     margin: ".75rem 0",
+    width: "70%",
+    fontFamily: "Montserrat, sans-serif",
+    "& p": {
+      textAlign: "center",
+    },
+    "& a": {
+      textDecoration: "none",
+      color: "#0c0c0d",
+      fontWeight: 600,
+      "&:visited": {
+        color: "#0c0c0d",
+      },
+      "&:hover": {
+        textDecoration: "underline",
+      },
+    },
   },
   submitBtnRoot: {
     background: "#ff4244",
-    fontFamily: "Montserrat",
+    fontFamily: "Montserrat, sans-serif",
     fontWeight: 600,
     "&:hover": {
       background: "#ff4244",
@@ -78,7 +101,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("xs")]: {},
 }));
 
-const Form = () => {
+const SignupForm = ({ handleFormSubmit }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
@@ -117,7 +140,6 @@ const Form = () => {
   const passwordsMatch = useSelector((state) => state.auth.passwordsMatch);
 
   const handleKeyPress = (event) => {
-    // console.log("TARGET:", event.currentTarget);
     setAnchorEl(event.currentTarget);
     setTargetName(event.target.name);
     setOpen(true);
@@ -154,8 +176,18 @@ const Form = () => {
     );
   };
 
+  const handleModeChange = () => {
+    dispatch(authActions.changeMode());
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleFormSubmit(
+      usernameInput,
+      emailInput,
+      passwordInput,
+      confirmPasswordInput
+    );
     dispatch(authActions.clearForm());
   };
 
@@ -193,7 +225,6 @@ const Form = () => {
                 onBlur: handleInputblur,
               }}
               value={usernameInput}
-              fullWidth
             />
           </div>
           <div className={classes.formRow}>
@@ -225,7 +256,6 @@ const Form = () => {
                 onBlur: handleInputblur,
               }}
               value={emailInput}
-              fullWidth
             />
           </div>
           <div className={classes.formRow}>
@@ -257,7 +287,6 @@ const Form = () => {
                 onBlur: handleInputblur,
               }}
               value={passwordInput}
-              fullWidth
             />
           </div>
           <div className={classes.formRow}>
@@ -289,7 +318,6 @@ const Form = () => {
                 onBlur: handleInputblur,
               }}
               value={confirmPasswordInput}
-              fullWidth
             />
           </div>
 
@@ -307,9 +335,14 @@ const Form = () => {
           </div>
         </form>
         <SocialLinks />
+        <div className={classes.formRow}>
+          <p>
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
+        </div>
       </div>
     </AuthCard>
   );
 };
 
-export default Form;
+export default SignupForm;

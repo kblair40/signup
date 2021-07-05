@@ -6,7 +6,6 @@ import Backdrop from "./Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   authCardContainer: {
-    // height: "100%",
     height: "80vh",
     display: "flex",
     justifyContent: "center",
@@ -14,25 +13,25 @@ const useStyles = makeStyles((theme) => ({
   },
   authCard: {
     height: "100%",
-    maxHeight: "32rem",
+    maxHeight: "35rem",
     minHeight: "28rem",
-    width: "40vw",
-    minWidth: "20rem",
-    maxWidth: "30rem",
+    width: "45vw",
+    minWidth: "22rem",
+    maxWidth: "32rem",
   },
   cardHeader: {
     fontSize: "1.8rem",
     textAlign: "center",
-    fontFamily: "Montserrat, sans-serif",
+    fontFamily: "Comfortaa, sans-serif",
     fontWeight: "700",
     margin: "1rem 0",
   },
   cardContent: {
-    padding: "1rem 2rem",
+    padding: "1rem",
   },
   [theme.breakpoints.down("sm")]: {
     authCard: {
-      width: "65vw",
+      width: "75vw",
     },
   },
   [theme.breakpoints.down("xs")]: {
@@ -43,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AuthCard = (props) => {
   const classes = useStyles();
+
+  const handleFormSubmit = (url) => {
+    const apiKey = "AIzaSyDzq0qel4UDBQYRFEFDJPLLS";
+  };
 
   return (
     <Backdrop>

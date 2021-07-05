@@ -34,6 +34,10 @@ const initialAuthState = {
   // confirmPasswordHasInvalidLength: false,
   // confirmPasswordHasInvalidChars: false,
   PasswordsMatch: false,
+  isLoggedIn: false,
+  token: null,
+  remainingTime: 0,
+  mode: "signup",
 };
 
 const authSlice = createSlice({
@@ -90,6 +94,24 @@ const authSlice = createSlice({
       state.passwordInput = "";
       state.confirmPasswordInput = "";
       // I MAY ALSO NEED TO RESET ALL ERRORS TO FALSE
+    },
+    login(state, action) {
+      const { token, expTime } = action.payload;
+      console.log("token:", token, "\nexpTime:", expTime);
+
+      state.token = token;
+      state.remainingTime = expTime;
+      state.isLoggedIn = true;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("expirationTime", expTime);
+    },
+    logout(state, action) {
+      state.token = null;
+      state.expirationTime = 0;
+      state.isLoggedIn = false;
+      localStorage.removeItem("token");
+      localStorage.removeItem("expirationTime");
     },
   },
 });
