@@ -176,10 +176,6 @@ const SignupForm = ({ handleFormSubmit }) => {
     );
   };
 
-  const handleModeChange = () => {
-    dispatch(authActions.changeMode());
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     handleFormSubmit(

@@ -8,7 +8,6 @@ import { authActions } from "../../store/authSlice";
 
 const FormContainer = () => {
   const location = useLocation();
-  console.log("LOCATION:", location);
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.auth.mode);
   const history = useHistory();
@@ -17,6 +16,8 @@ const FormContainer = () => {
   const apiKey = "AIzaSyDzq0qel4UDBQYRFEFDJPLLS-kPSpjRIl4";
   const signupUrl =
     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
+  const loginUrl =
+    "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
   // add to redux state to decide if in sign-in or create-account mode - or maybe useParams with react-router
   //   const mode = "signup"; // hard-coding for now
 
@@ -30,7 +31,7 @@ const FormContainer = () => {
       url = signupUrl + apiKey;
     } else {
       console.log("ERROR: This should not run");
-      url = apiKey;
+      url = loginUrl + apiKey;
     }
 
     fetch(url, {
@@ -82,13 +83,17 @@ const FormContainer = () => {
 
   const componentToRender = () => {
     if ((location.pathname = "/signup")) {
-      return <SignupForm />;
+      return <SignupForm handleFormSubmit={handleFormSubmit} />;
     } else {
-      return <LoginForm />;
+      return <LoginForm handleFormSubmit={handleFormSubmit} />;
     }
   };
 
-  return componentToRender();
+  return (
+    <div>
+      {location.pathname === "/signup" ? <SignupForm /> : <LoginForm />}
+    </div>
+  );
 };
 
 export default FormContainer;
