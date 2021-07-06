@@ -9,8 +9,9 @@ const validators = {
     return regex.test(username);
   },
   emailChars: (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    const generalRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const endRegex = /net|com|org|info|biz|pro|cat|edu$/i;
+    return generalRegex.test(email) && endRegex.test(email);
   },
   passwordChars: (password) => {
     const regex = /^[a-z0-9?!@#$%^&*]$/i;
@@ -34,7 +35,6 @@ const initialAuthState = {
   PasswordsMatch: false,
   errorModalShowing: false,
   errorMessage: "",
-  // isLoggedIn: false,
   isLoggedIn: Boolean(localStorage.getItem("token")),
   token: localStorage.getItem("token"),
   remainingTime: localStorage.getItem("expirationTime"),
@@ -49,10 +49,7 @@ const authSlice = createSlice({
       const { username } = action.payload;
       const isInvalidLength = !validators.usernameLength(username);
       const hasInvalidChars = !validators.usernameChars(username);
-      console.log("USERNAME");
-      // console.log("usernameInput:", username);
-      console.log("isInvalidLength:", isInvalidLength);
-      console.log("hasInvalidChars:", hasInvalidChars, "\n\n");
+
       state.usernameInput = username;
       state.usernameHasInvalidChars = hasInvalidChars;
       state.usernameHasInvalidLength = isInvalidLength;
@@ -60,20 +57,13 @@ const authSlice = createSlice({
     handleEmailChange(state, action) {
       const { email } = action.payload;
       const isValidFormat = validators.emailChars(email);
-      console.log("Email");
-      // console.log("emailInput:", email);
-      console.log("isValidFormat:", isValidFormat, "\n\n");
-      state.emailInput = email;
-      state.emailHasError = isValidFormat;
+      const validEmailEnd = (state.emailInput = email);
+      state.emailHasError = isValidFormat && validEmailEnd;
     },
     handlePasswordChange(state, action) {
       const { password } = action.payload;
       const isInvalidLength = !validators.passwordLength(password);
       const hasInvalidChars = !validators.passwordChars(password);
-      console.log("Password");
-      // console.log("passwordInput:", password);
-      console.log("isInvalidLength:", isInvalidLength);
-      console.log("hasInvalidChars:", hasInvalidChars, "\n\n");
       state.passwordInput = password;
       state.passwordHasInvalidChars = hasInvalidChars;
       state.passwordHasInvalidLength = isInvalidLength;
@@ -84,8 +74,6 @@ const authSlice = createSlice({
         confirmPassword,
         state.passwordInput
       );
-      console.log("confirmPassword:", confirmPassword);
-      console.log("passwordsMatch:", passwordsMatch, "\n\n");
       state.confirmPasswordInput = confirmPassword;
       state.passwordsMatch = passwordsMatch;
     },
@@ -94,11 +82,9 @@ const authSlice = createSlice({
       state.emailInput = "";
       state.passwordInput = "";
       state.confirmPasswordInput = "";
-      // I MAY ALSO NEED TO RESET ALL ERRORS TO FALSE
     },
     login(state, action) {
       const { token, expTime } = action.payload;
-      console.log("token:", token, "\nexpTime:", expTime);
 
       state.token = token;
       state.remainingTime = expTime;
@@ -116,7 +102,7 @@ const authSlice = createSlice({
     },
     setError(state, action) {
       const { msg } = action.payload;
-      console.log("SETTING ERROR MESSAGE TO", msg);
+
       state.errorMessage = msg;
       state.errorModalShowing = true;
     },

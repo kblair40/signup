@@ -144,6 +144,7 @@ const LoginForm = ({ handleFormSubmit }) => {
                 classes={{ root: classes.inputRoot }}
                 inputProps={{
                   ref: emailInputRef,
+                  autocomplete: "off",
                 }}
               />
             </div>
