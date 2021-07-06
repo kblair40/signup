@@ -5,11 +5,11 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { Link, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import { authActions } from "../../store/authSlice";
-import { socialMediaAuth, socialMediaLogout } from "../../service/auth";
+import { socialMediaAuth } from "../../service/auth";
 import {
   googleProvider,
   githubProvider,
@@ -50,49 +50,51 @@ const SocialLinks = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  // return { credential, token, user };
+
   const handleLoginClick = async (provider) => {
-    // const res = await socialMediaAuth(provider);
-    const { credential, token, user } = await socialMediaAuth(provider);
-    // console.log("IN SOCIAL LINKS...");
+    const res = await socialMediaAuth(provider);
+    const { success } = res;
     // console.log("RES:", res);
-    console.log("credential:", credential);
-    console.log("token:", token);
-    console.log("user:", user);
-    dispatch(authActions.login({ token: token, expTime: 4565198475 }));
+    if (success) {
+      console.log("SUCCESS");
+      const { credential, token, user } = res;
+      console.log("credential:", credential);
+      console.log("token:", token);
+      console.log("user:", user);
+      dispatch(authActions.login({ token: token, expTime: 4565198475 }));
+    } else {
+      console.log("FAIL");
+      const { errorMessage } = res;
+      console.log("ERROR ERROR MESSAGE...", errorMessage);
+      dispatch(authActions.setError({ msg: errorMessage }));
+    }
     history.replace("/success");
   };
   return (
     <div className={classes.socialLinksContainer}>
       <div className={classes.linkContainer}>
-        {/* <Link to="/social"> */}
         <IconButton className={classes.bgTwitter}>
           <TwitterIcon
             fontSize="large"
             onClick={() => handleLoginClick(twitterProvider)}
           />
         </IconButton>
-        {/* </Link> */}
       </div>
       <div className={classes.linkContainer}>
-        {/* <Link to="/social"> */}
         <IconButton
           className={classes.bgGithub}
           onClick={() => handleLoginClick(githubProvider)}
         >
           <GitHubIcon fontSize="large" />
         </IconButton>
-        {/* </Link> */}
       </div>
       <div className={classes.linkContainer}>
-        {/* <Link to="/social"> */}
         <IconButton
           className={classes.bgGoogle}
           onClick={() => handleLoginClick(googleProvider)}
         >
           <FontAwesomeIcon fontSize="large" icon={faGoogle} />
         </IconButton>
-        {/* </Link> */}
       </div>
     </div>
   );

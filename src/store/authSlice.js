@@ -32,6 +32,8 @@ const initialAuthState = {
   passwordHasInvalidChars: false,
   confirmPasswordInput: "",
   PasswordsMatch: false,
+  errorModalShowing: false,
+  errorMessage: "",
   // isLoggedIn: false,
   isLoggedIn: Boolean(localStorage.getItem("token")),
   token: localStorage.getItem("token"),
@@ -111,6 +113,16 @@ const authSlice = createSlice({
       state.isLoggedIn = false;
       localStorage.removeItem("token");
       localStorage.removeItem("expirationTime");
+    },
+    setError(state, action) {
+      const { msg } = action.payload;
+      console.log("SETTING ERROR MESSAGE TO", msg);
+      state.errorMessage = msg;
+      state.errorModalShowing = true;
+    },
+    closeErrorModal(state) {
+      state.errorMessage = "";
+      state.errorModalShowing = false;
     },
   },
 });

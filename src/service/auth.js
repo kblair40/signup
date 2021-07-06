@@ -9,7 +9,7 @@ export const socialMediaAuth = (provider) => {
       const token = credential.idToken;
       const user = res.user;
 
-      return { credential, token, user };
+      return { success: true, credential, token, user };
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -23,6 +23,7 @@ export const socialMediaAuth = (provider) => {
       console.log("errorMessage", errorMessage);
       console.log("email", email);
       console.log("credential", credential);
+      return { success: false, errorMessage, email };
     });
 };
 

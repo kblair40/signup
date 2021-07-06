@@ -6,12 +6,6 @@ import { useHistory } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
 import { socialMediaLogout } from "../../service/auth";
-// SHOULDN'T NEED BELOW IMPORTS FOR LOGGING OUT
-// import {
-//   googleProvider,
-//   githubProvider,
-//   twitterProvider,
-// } from "../../config/authMethods";
 
 const useStyles = makeStyles((theme) => ({
   successContainer: {
@@ -41,6 +35,7 @@ const Success = () => {
   const handleLogout = () => {
     socialMediaLogout();
     dispatch(authActions.logout());
+    history.replace("/login");
   };
   return (
     <div className={classes.successContainer}>
