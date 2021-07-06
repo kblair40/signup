@@ -61,16 +61,10 @@ const useStyles = makeStyles((theme) => ({
       background: "#ff4244",
     },
   },
-  labelNotTouched: {
+  label: {
     color: "rgba(0,0,0,0.8)",
   },
-  labelValid: {
-    color: "#5dca36",
-  },
-  labelError: {
-    color: "#ff4244",
-  },
-  inputNotTouched: {
+  inputRoot: {
     width: "100%",
     "&:before": {
       borderColor: "#0c0c0d",
@@ -112,7 +106,7 @@ const LoginForm = ({ handleFormSubmit }) => {
     console.log("email:", emailInput);
     console.log("password:", passwordInput);
     e.preventDefault();
-    // handleFormSubmit();
+    handleFormSubmit(emailInput, passwordInput, "login");
     emailInputRef.current.value = "";
     passwordInputRef.current.value = "";
   };
@@ -122,20 +116,22 @@ const LoginForm = ({ handleFormSubmit }) => {
       <div className={classes.formContainer}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.formRow}>
-            <InputLabel>Email Address</InputLabel>
+            <InputLabel className={classes.label}>Email Address</InputLabel>
             <Input
               name="email"
               type="text"
+              classes={{ root: classes.inputRoot }}
               inputProps={{
                 ref: emailInputRef,
               }}
             />
           </div>
           <div className={classes.formRow}>
-            <InputLabel>Password</InputLabel>
+            <InputLabel className={classes.label}>Password</InputLabel>
             <Input
               name="password"
               type="text"
+              classes={{ root: classes.inputRoot }}
               inputProps={{
                 ref: passwordInputRef,
               }}
@@ -151,7 +147,7 @@ const LoginForm = ({ handleFormSubmit }) => {
               fullWidth
               disableFocusRipple
             >
-              Create Account
+              Sign In
             </Button>
           </div>
         </form>

@@ -178,12 +178,7 @@ const SignupForm = ({ handleFormSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleFormSubmit(
-      usernameInput,
-      emailInput,
-      passwordInput,
-      confirmPasswordInput
-    );
+    handleFormSubmit(emailInput, passwordInput, "signup");
     dispatch(authActions.clearForm());
   };
 

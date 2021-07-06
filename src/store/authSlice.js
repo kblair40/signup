@@ -31,12 +31,11 @@ const initialAuthState = {
   passwordHasInvalidLength: false,
   passwordHasInvalidChars: false,
   confirmPasswordInput: "",
-  // confirmPasswordHasInvalidLength: false,
-  // confirmPasswordHasInvalidChars: false,
   PasswordsMatch: false,
-  isLoggedIn: false,
-  token: null,
-  remainingTime: 0,
+  // isLoggedIn: false,
+  isLoggedIn: Boolean(localStorage.getItem("token")),
+  token: localStorage.getItem("token"),
+  remainingTime: localStorage.getItem("expirationTime"),
   mode: "signup",
 };
 
@@ -106,7 +105,7 @@ const authSlice = createSlice({
       localStorage.setItem("token", token);
       localStorage.setItem("expirationTime", expTime);
     },
-    logout(state, action) {
+    logout(state) {
       state.token = null;
       state.expirationTime = 0;
       state.isLoggedIn = false;

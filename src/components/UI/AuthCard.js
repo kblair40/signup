@@ -1,6 +1,7 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Card from "@material-ui/core/Card";
+import { useLocation } from "react-router-dom";
 
 import Backdrop from "./Backdrop";
 
@@ -42,16 +43,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AuthCard = (props) => {
   const classes = useStyles();
-
-  const handleFormSubmit = (url) => {
-    const apiKey = "AIzaSyDzq0qel4UDBQYRFEFDJPLLS";
-  };
+  const location = useLocation();
 
   return (
     <Backdrop>
       <div className={classes.authCardContainer}>
         <Card elevation={24} classes={{ root: classes.authCard }}>
-          <div className={classes.cardHeader}>Sign Up</div>
+          <div className={classes.cardHeader}>
+            {location.pathname === "/signup" ? "Sign Up" : "Login"}
+          </div>
           <div className={classes.cardContent}>{props.children}</div>
         </Card>
       </div>
