@@ -7,16 +7,15 @@ import Backdrop from "./Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   authCardContainer: {
-    height: "80vh",
+    height: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   authCard: {
-    height: "100%",
-    maxHeight: "35rem",
-    // maxHeight: "auto",
-    minHeight: "28rem",
+    height: "80%",
+    maxHeight: "38rem",
+    minHeight: "32rem",
     width: "50vw",
     minWidth: "22rem",
     maxWidth: "32rem",
@@ -40,8 +39,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   [theme.breakpoints.down("xs")]: {
+    authCardContainer: {
+      // height: "100vh",
+    },
     authCard: {
-      width: "90vw",
+      width: "96vw",
+      // height: "100vh",
     },
   },
 }));
@@ -52,7 +55,7 @@ const AuthCard = (props) => {
   return (
     <Backdrop>
       <div className={classes.authCardContainer}>
-        <Card elevation={24} classes={{ root: classes.authCard }}>
+        <Card elevation={0} classes={{ root: classes.authCard }}>
           <div className={classes.cardHeader}>
             {location.pathname === "/signup" ? "Sign Up" : "Login"}
           </div>

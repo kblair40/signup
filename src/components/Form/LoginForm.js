@@ -4,11 +4,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 
 import AuthCard from "../UI/AuthCard";
-import FormPopper from "./FormPopper";
+// import FormPopper from "./FormPopper";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: "100%",
-    height: "100%",
+    // height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -103,13 +102,23 @@ const LoginForm = ({ handleFormSubmit }) => {
   const classes = useStyles();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     const emailInput = emailInputRef.current.value;
     const passwordInput = passwordInputRef.current.value;
+    if (emailInput.trim() === "") {
+      dispatch(
+        authActions.setError({
+          msg: "At least make an attempt at providing your email",
+        })
+      );
+      return;
+    }
     console.log("email:", emailInput);
     console.log("password:", passwordInput);
-    e.preventDefault();
+
     handleFormSubmit(emailInput, passwordInput, "login");
     emailInputRef.current.value = "";
     passwordInputRef.current.value = "";

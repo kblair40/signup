@@ -86,6 +86,7 @@ const FormContainer = () => {
       })
       .catch((err) => {
         let msg = err.message;
+        console.log("CODE:", err);
         if ((msg = "INVALID_EMAIL")) {
           msg = "That is not a valid email address!";
         }
