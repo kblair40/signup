@@ -20,10 +20,8 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   socialLinksContainer: {
-    // border: "2px solid green",
     width: "100%",
-    // height: "100%",
-    maxHeight: "10rem",
+    alignItems: "center",
     display: "flex",
     justifyContent: "space-between",
     "& button": {
@@ -31,12 +29,11 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Montserrat",
       fontSize: ".7rem",
     },
-    [theme.breakpoints.down("xs")]: {
-      justifyContent: "space-evenly",
-    },
   },
-  topMargin: {
-    // marginTop: ".5rem",
+  iconBtnContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   bgGoogle: {
     "&:hover": {
@@ -75,6 +72,16 @@ const useStyles = makeStyles((theme) => ({
     background: "rgba(29,161,242, .9)",
     "&:hover": {
       background: "rgb(29,161,242)",
+    },
+  },
+  [theme.breakpoints.down("xs")]: {
+    socialLinksContainer: {
+      justifyContent: "space-evenly",
+      alignItems: "center",
+      "& button": {
+        width: "100%",
+        fontFamily: "Montserrat",
+      },
     },
   },
 }));
@@ -140,28 +147,34 @@ const SocialLinks = () => {
         </Button>
       </Hidden>
       <Hidden smUp>
-        <IconButton className={classes.bgTwitter}>
-          <TwitterIcon
-            fontSize="large"
-            onClick={() => handleLoginClick(twitterProvider)}
-          />
-        </IconButton>
-        <IconButton
-          className={classes.bgGithub}
-          onClick={() => handleLoginClick(githubProvider)}
-        >
-          <GitHubIcon fontSize="large" />
-        </IconButton>
-        <IconButton
-          className={classes.bgGoogle}
-          onClick={() => handleLoginClick(googleProvider)}
-        >
-          <FontAwesomeIcon
-            className={classes.googleIconBtn}
-            fontSize="large"
-            icon={faGoogle}
-          />
-        </IconButton>
+        <div className={classes.iconBtnContainer}>
+          <IconButton className={classes.bgTwitter}>
+            <TwitterIcon
+              fontSize="large"
+              onClick={() => handleLoginClick(twitterProvider)}
+            />
+          </IconButton>
+        </div>
+        <div className={classes.iconBtnContainer}>
+          <IconButton
+            className={classes.bgGithub}
+            onClick={() => handleLoginClick(githubProvider)}
+          >
+            <GitHubIcon fontSize="large" />
+          </IconButton>
+        </div>
+        <div className={classes.iconBtnContainer}>
+          <IconButton
+            className={classes.bgGoogle}
+            onClick={() => handleLoginClick(googleProvider)}
+          >
+            <FontAwesomeIcon
+              className={classes.googleIconBtn}
+              fontSize="large"
+              icon={faGoogle}
+            />
+          </IconButton>
+        </div>
       </Hidden>
     </div>
   );

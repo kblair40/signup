@@ -14,7 +14,7 @@ import { authActions } from "../../store/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    height: "100%",
+    height: "30rem",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    margin: "1rem 0",
     "& label": {
       fontFamily: "Montserrat, sans-serif",
     },
@@ -36,10 +37,12 @@ const useStyles = makeStyles((theme) => ({
   },
   formRow: {
     margin: ".75rem 0",
-    width: "70%",
+    width: "80%",
     fontFamily: "Montserrat, sans-serif",
     "& p": {
       textAlign: "center",
+      position: "relative",
+      // top: "2rem",
     },
     "& a": {
       textDecoration: "none",
@@ -98,7 +101,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.down("xs")]: {
+    formRow: {
+      margin: ".75rem 0",
+      width: "90%",
+      "& p": {
+        position: "static",
+      },
+    },
+  },
 }));
 
 const SignupForm = ({ handleFormSubmit }) => {

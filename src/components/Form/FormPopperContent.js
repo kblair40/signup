@@ -109,7 +109,7 @@ const FormPopperContent = ({ targetName }) => {
               )}
 
               <p className={classes.rule}>
-                Length is between 7 and 15 characters
+                Length is between 8 and 16 characters
               </p>
             </div>
             <div className={classes.validationRow}>

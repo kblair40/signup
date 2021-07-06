@@ -13,21 +13,18 @@ import { authActions } from "../../store/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    // height: "100%",
     height: "30rem",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
-    // border: "3px solid green",
   },
   form: {
     width: "100%",
-    // height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    margin: "1rem 0 1.5rem 0",
     "& label": {
       fontFamily: "Montserrat, sans-serif",
     },
@@ -35,14 +32,15 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Montserrat, sans-serif",
       color: "#0c0c0d",
     },
-    // border: "3px solid red",
   },
   formRow: {
     margin: ".75rem 0",
-    width: "70%",
+    width: "80%",
     fontFamily: "Montserrat, sans-serif",
     "& p": {
       textAlign: "center",
+      position: "relative",
+      top: "1rem",
     },
     "& a": {
       textDecoration: "none",
@@ -94,8 +92,17 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#ff4244",
     },
   },
+
   [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.down("xs")]: {},
+  [theme.breakpoints.down("xs")]: {
+    formRow: {
+      margin: ".75rem 0",
+      width: "90%",
+      "& p": {
+        position: "static",
+      },
+    },
+  },
 }));
 
 const LoginForm = ({ handleFormSubmit }) => {
@@ -125,56 +132,58 @@ const LoginForm = ({ handleFormSubmit }) => {
   };
 
   return (
-    <AuthCard>
-      <div className={classes.formContainer}>
-        <form onSubmit={handleSubmit} className={classes.form}>
-          <div className={classes.formRow}>
-            <InputLabel className={classes.label}>Email Address</InputLabel>
-            <Input
-              name="email"
-              type="text"
-              classes={{ root: classes.inputRoot }}
-              inputProps={{
-                ref: emailInputRef,
-              }}
-            />
-          </div>
-          <div className={classes.formRow}>
-            <InputLabel className={classes.label}>Password</InputLabel>
-            <Input
-              name="password"
-              type="text"
-              classes={{ root: classes.inputRoot }}
-              inputProps={{
-                ref: passwordInputRef,
-              }}
-            />
-          </div>
+    <div className={classes.loginFormContainer}>
+      <AuthCard>
+        <div className={classes.formContainer}>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <div className={classes.formRow}>
+              <InputLabel className={classes.label}>Email Address</InputLabel>
+              <Input
+                name="email"
+                type="text"
+                classes={{ root: classes.inputRoot }}
+                inputProps={{
+                  ref: emailInputRef,
+                }}
+              />
+            </div>
+            <div className={classes.formRow}>
+              <InputLabel className={classes.label}>Password</InputLabel>
+              <Input
+                name="password"
+                type="text"
+                classes={{ root: classes.inputRoot }}
+                inputProps={{
+                  ref: passwordInputRef,
+                }}
+              />
+            </div>
 
-          <div className={`${classes.formRow} ${classes.submitBtn}`}>
-            <Button
-              classes={{ root: classes.submitBtnRoot }}
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              disableFocusRipple
-            >
-              Sign In
-            </Button>
+            <div className={`${classes.formRow} ${classes.submitBtn}`}>
+              <Button
+                classes={{ root: classes.submitBtnRoot }}
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                disableFocusRipple
+              >
+                Sign In
+              </Button>
+            </div>
+          </form>
+          <SocialLinks />
+          <div className={classes.formRow}>
+            <p className={classes.linkToAccount}>
+              Don't have an account?{" "}
+              <Link style={{ whiteSpace: "nowrap" }} to="/signup">
+                Create Account
+              </Link>
+            </p>
           </div>
-        </form>
-        <SocialLinks />
-        <div className={classes.formRow}>
-          <p>
-            Don't have an account?{" "}
-            <Link style={{ whiteSpace: "nowrap" }} to="/signup">
-              Create Account
-            </Link>
-          </p>
         </div>
-      </div>
-    </AuthCard>
+      </AuthCard>
+    </div>
   );
 };
 
