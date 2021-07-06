@@ -167,7 +167,10 @@ const LoginForm = ({ handleFormSubmit }) => {
         <SocialLinks />
         <div className={classes.formRow}>
           <p>
-            Don't have an account? <Link to="/signup">Create Account</Link>
+            Don't have an account?{" "}
+            <Link style={{ whiteSpace: "nowrap" }} to="/signup">
+              Create Account
+            </Link>
           </p>
         </div>
       </div>

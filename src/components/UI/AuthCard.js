@@ -7,6 +7,7 @@ import Backdrop from "./Backdrop";
 
 const useStyles = makeStyles((theme) => ({
   authCardContainer: {
+    // border: "2px solid green",
     height: "100vh",
     display: "flex",
     justifyContent: "center",
@@ -14,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
   },
   authCard: {
     height: "80%",
-    maxHeight: "38rem",
+    maxHeight: "40rem",
     minHeight: "32rem",
-    width: "50vw",
+    width: "50%",
     minWidth: "22rem",
-    maxWidth: "32rem",
+    maxWidth: "34rem",
   },
   cardHeader: {
     fontSize: "1.8rem",
@@ -39,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   [theme.breakpoints.down("xs")]: {
-    authCardContainer: {
-      // height: "100vh",
-    },
     authCard: {
-      width: "96vw",
-      // height: "100vh",
+      maxHeight: "100vh",
+      maxWidth: "100vw",
+      width: "100vw",
+      height: "100%",
+      borderRadius: 0,
     },
   },
 }));
