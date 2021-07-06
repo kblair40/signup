@@ -54,7 +54,8 @@ const SocialLinks = () => {
   const handleLoginClick = async (provider) => {
     // const res = await socialMediaAuth(provider);
     const { credential, token, user } = await socialMediaAuth(provider);
-    console.log("IN SOCIAL LINKS...");
+    // console.log("IN SOCIAL LINKS...");
+    // console.log("RES:", res);
     console.log("credential:", credential);
     console.log("token:", token);
     console.log("user:", user);
