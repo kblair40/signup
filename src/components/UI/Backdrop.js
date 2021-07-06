@@ -10,13 +10,6 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     width: "100vw",
   },
-  // errorModalContainer: {
-  //   display: "flex",
-  //   height: "100%",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   padding: "2rem",
-  // },
 }));
 
 const Backdrop = (props) => {
@@ -25,9 +18,7 @@ const Backdrop = (props) => {
   return (
     <div className={classes.backdropContainer}>
       {props.children}
-      {/* <div className={classes.errorModalContainer}> */}
       <ErrorModal />
-      {/* </div> */}
     </div>
   );
 };

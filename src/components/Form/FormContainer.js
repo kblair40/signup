@@ -20,8 +20,6 @@ const FormContainer = () => {
     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
   const loginUrl =
     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
-  const socialLoginUrl =
-    "https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key=";
   // add to redux state to decide if in sign-in or create-account mode - or maybe useParams with react-router
   //   const mode = "signup"; // hard-coding for now
 
@@ -32,7 +30,6 @@ const FormContainer = () => {
     setIsLoading(true);
 
     let url;
-    // let url = socialLoginUrl + apiKey;
     if (isSignupMode) {
       console.log("SIGN UP");
       url = signupUrl + apiKey;
@@ -63,10 +60,7 @@ const FormContainer = () => {
             return res.json();
           }
         } else {
-          // FAILED
           return res.json().then((data) => {
-            // Replace later with error modal
-            // console.log("ERROR:", data);
             let errorMessage = "Authentication failed!";
             if (data && data.error && data.error.message) {
               errorMessage = data.error.message;
@@ -91,7 +85,12 @@ const FormContainer = () => {
         history.replace("/login");
       })
       .catch((err) => {
-        alert(err.message);
+        let msg = err.message;
+        if ((msg = "INVALID_EMAIL")) {
+          msg = "That is not a valid email address!";
+        }
+        dispatch(authActions.setError({ msg }));
+        // alert(err.message);
       });
   };
   console.log("IS LOGGED IN?", isLoggedIn);
@@ -100,9 +99,6 @@ const FormContainer = () => {
       {location.pathname === "/signup" ? (
         <SignupForm handleFormSubmit={handleFormSubmit} />
       ) : (
-        //   ) :
-        //   location.pathname === "/social" ? (
-        // <SocialLogin handleFormSubmit={handleFormSubmit} />
         <LoginForm handleFormSubmit={handleFormSubmit} />
       )}
     </div>

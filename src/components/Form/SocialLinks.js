@@ -1,11 +1,11 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { authActions } from "../../store/authSlice";
@@ -18,30 +18,33 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   socialLinksContainer: {
-    width: "100%",
     height: "100%",
+    maxHeight: "3rem",
+    // border: "3px solid blue",
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-
-  bgGoogle: {
-    fontSize: "2.1875rem",
-    "&:hover": {
-      background: "rgba(219,50,54,.2)",
-      color: "rgb(219,50,54)",
+    justifyContent: "space-between",
+    "& button": {
+      width: "32%",
+      fontFamily: "Montserrat",
+      fontSize: ".75rem",
     },
   },
-  bgTwitter: {
+  googleBtn: {
+    background: "rgba(219,50,54, .9)",
     "&:hover": {
-      background: "rgba(29,161,242,0.2)",
-      color: "#1DA1F2",
+      background: "rgb(219,50,54)",
     },
   },
-  bgGithub: {
+  githubBtn: {
+    background: "rgba(51,51,51, .9)",
     "&:hover": {
-      background: "rgba(51,51,51,0.2)",
-      color: "rgb(51,51,51)",
+      background: "rgb(51,51,51)",
+    },
+  },
+  twitterBtn: {
+    background: "rgba(29,161,242, .9)",
+    "&:hover": {
+      background: "rgb(29,161,242)",
     },
   },
 }));
@@ -50,11 +53,12 @@ const SocialLinks = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const location = useLocation();
+  const isSignupMode = location.pathname === "/signup";
 
   const handleLoginClick = async (provider) => {
     const res = await socialMediaAuth(provider);
     const { success } = res;
-    // console.log("RES:", res);
     if (success) {
       console.log("SUCCESS");
       const { credential, token, user } = res;
@@ -72,30 +76,33 @@ const SocialLinks = () => {
   };
   return (
     <div className={classes.socialLinksContainer}>
-      <div className={classes.linkContainer}>
-        <IconButton className={classes.bgTwitter}>
-          <TwitterIcon
-            fontSize="large"
-            onClick={() => handleLoginClick(twitterProvider)}
-          />
-        </IconButton>
-      </div>
-      <div className={classes.linkContainer}>
-        <IconButton
-          className={classes.bgGithub}
-          onClick={() => handleLoginClick(githubProvider)}
-        >
-          <GitHubIcon fontSize="large" />
-        </IconButton>
-      </div>
-      <div className={classes.linkContainer}>
-        <IconButton
-          className={classes.bgGoogle}
-          onClick={() => handleLoginClick(googleProvider)}
-        >
-          <FontAwesomeIcon fontSize="large" icon={faGoogle} />
-        </IconButton>
-      </div>
+      <Button
+        variant="contained"
+        color="primary"
+        classes={{ root: classes.twitterBtn }}
+        startIcon={<TwitterIcon fontSize="large" />}
+        onClick={() => handleLoginClick(twitterProvider)}
+      >
+        {isSignupMode ? "Sign Up" : "Login"} with Twitter
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        classes={{ root: classes.githubBtn }}
+        startIcon={<GitHubIcon fontSize="large" />}
+        onClick={() => handleLoginClick(githubProvider)}
+      >
+        {isSignupMode ? "Sign Up" : "Login"} with Github
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        classes={{ root: classes.googleBtn }}
+        startIcon={<FontAwesomeIcon fontSize="large" icon={faGoogle} />}
+        onClick={() => handleLoginClick(googleProvider)}
+      >
+        {isSignupMode ? "Sign Up" : "Login"} with Google
+      </Button>
     </div>
   );
 };

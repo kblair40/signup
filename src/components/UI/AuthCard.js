@@ -15,8 +15,9 @@ const useStyles = makeStyles((theme) => ({
   authCard: {
     height: "100%",
     maxHeight: "35rem",
+    // maxHeight: "auto",
     minHeight: "28rem",
-    width: "45vw",
+    width: "50vw",
     minWidth: "22rem",
     maxWidth: "32rem",
   },
@@ -29,10 +30,13 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     padding: "1rem",
+    // display: "flex",
+    // flexDirection: "column",
+    // alignItems: "space-between",
   },
   [theme.breakpoints.down("sm")]: {
     authCard: {
-      width: "75vw",
+      width: "80vw",
     },
   },
   [theme.breakpoints.down("xs")]: {

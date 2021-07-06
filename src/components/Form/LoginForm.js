@@ -14,11 +14,13 @@ import { authActions } from "../../store/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
-    height: "100%",
+    // height: "100%",
+    height: "30rem",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    // border: "3px solid green",
   },
   form: {
     width: "100%",
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    justifyContent: "center",
     "& label": {
       fontFamily: "Montserrat, sans-serif",
     },
@@ -33,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily: "Montserrat, sans-serif",
       color: "#0c0c0d",
     },
+    // border: "3px solid red",
   },
   formRow: {
     margin: ".75rem 0",
