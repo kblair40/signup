@@ -20,8 +20,6 @@ const FormContainer = () => {
     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
   const loginUrl =
     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
-  // add to redux state to decide if in sign-in or create-account mode - or maybe useParams with react-router
-  //   const mode = "signup"; // hard-coding for now
 
   const handleFormSubmit = (email, password, mode, errorMsg = null) => {
     if (errorMsg && errorMsg !== "") {

@@ -10,8 +10,8 @@ const colors = {
     red: "#E0245E",
   },
   google: {
-    red: "#DB4437",
     main: "#4285F4",
+    red: "#DB4437",
     yellow: "#F4B400",
     green: "#0F9D58",
     black: "#1A1A1A",
@@ -20,6 +20,12 @@ const colors = {
   github: {
     main: "#24292d",
     darkBlue: "#0366D6",
+    red: "#CB2532",
+  },
+  email: {
+    main: "#212121",
+    black: "#0c0c0d",
+    red: "#ff4244",
   },
 };
 

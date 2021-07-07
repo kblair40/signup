@@ -55,11 +55,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   submitBtnRoot: {
-    background: "#ff4244",
+    color: "white",
+    background: "rgba(29,109,134,.9)",
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 600,
     "&:hover": {
-      background: "#ff4244",
+      background: "rgb(29,109,134)",
     },
   },
   label: {
@@ -165,7 +166,6 @@ const LoginForm = ({ handleFormSubmit }) => {
                 classes={{ root: classes.submitBtnRoot }}
                 type="submit"
                 variant="contained"
-                color="primary"
                 fullWidth
                 disableFocusRipple
               >

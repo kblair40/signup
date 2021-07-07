@@ -42,6 +42,7 @@ const initialAuthState = {
   token: localStorage.getItem("token"),
   remainingTime: localStorage.getItem("expirationTime"),
   mode: "signup",
+  formIsValid: false,
 };
 
 const authSlice = createSlice({

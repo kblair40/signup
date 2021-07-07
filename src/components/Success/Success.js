@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
+import { providerActions } from "../../store/providerSlice";
+
 import { socialMediaLogout } from "../../service/auth";
 import Backdrop from "../UI/Backdrop";
 import LogoutButton from "./LogoutButton";
@@ -58,16 +60,16 @@ const useStyles = makeStyles((theme) => ({
 const Success = () => {
   const colors = useSelector((state) => state.provider.colors);
   const font = useSelector((state) => state.provider.font);
-  const provider = useSelector((state) => state.provider.authProvider);
+  // const provider = useSelector((state) => state.provider.authProvider);
   const classes = useStyles({ colors, font });
 
   const dispatch = useDispatch();
   const history = useHistory();
-  console.log("COLORS:", colors, "\ntype:", typeof colors);
 
   const handleLogout = () => {
     socialMediaLogout();
     dispatch(authActions.logout());
+    dispatch(providerActions.setProvider({ provider: "email" }));
     history.replace("/login");
   };
   return (

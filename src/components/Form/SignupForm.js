@@ -3,8 +3,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import Button from "@material-ui/core/Button";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 import { Link } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
 
 import AuthCard from "../UI/AuthCard";
@@ -115,7 +118,15 @@ const SignupForm = ({ handleFormSubmit }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
   const [targetName, setTargetName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [hasBeenTouched, setHasBeenTouched] = useState({
+    username: false,
+    email: false,
+    password: false,
+    confirmPassword: false,
+  });
+  const [isValid, setIsValid] = useState({
     username: false,
     email: false,
     password: false,
@@ -160,11 +171,13 @@ const SignupForm = ({ handleFormSubmit }) => {
   };
 
   const handleUsernameChange = (e) => {
+    const username = e.target.value;
     setHasBeenTouched((state) => ({ ...state, username: true }));
-    dispatch(authActions.handleUsernameChange({ username: e.target.value }));
+    dispatch(authActions.handleUsernameChange({ username: username }));
   };
 
   const handleEmailChange = (e) => {
+    const email = e.target.value;
     setHasBeenTouched((state) => ({ ...state, email: true }));
 
     dispatch(authActions.handleEmailChange({ email: e.target.value }));
@@ -185,9 +198,14 @@ const SignupForm = ({ handleFormSubmit }) => {
     );
   };
 
+  const handleClickShowPassword = () => {
+    setShowPassword((state) => !state);
+  };
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword((state) => !state);
+  };
+
   const handleSubmit = (e) => {
-    console.log("chars:", passwordHasInvalidChars);
-    console.log("length:", passwordHasInvalidLength);
     e.preventDefault();
     let errorMsg = "";
     if (usernameInput.trim() === "" || usernameHasInvalidLength) {
@@ -208,12 +226,8 @@ const SignupForm = ({ handleFormSubmit }) => {
     } else if (!passwordsMatch) {
       errorMsg = "Passwords do not match";
     }
-    // else {
-    handleFormSubmit(emailInput, passwordInput, "signup", errorMsg);
-    // dispatch(authActions.clearForm());
-    // }
 
-    console.log("ERROR MESSAGE:", errorMsg);
+    handleFormSubmit(emailInput, passwordInput, "signup", errorMsg);
   };
 
   return (
@@ -306,7 +320,17 @@ const SignupForm = ({ handleFormSubmit }) => {
                     ? classes.inputValid
                     : classes.inputError,
               }}
-              type="text"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              type={showPassword ? "text" : "password"}
               inputProps={{
                 onKeyPress: handleKeyPress,
                 onBlur: handleInputblur,
@@ -337,7 +361,17 @@ const SignupForm = ({ handleFormSubmit }) => {
                     ? classes.inputValid
                     : classes.inputError,
               }}
-              type="text"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowConfirmPassword}
+                  >
+                    {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              type={showConfirmPassword ? "text" : "password"}
               inputProps={{
                 onKeyPress: handleKeyPress,
                 onBlur: handleInputblur,
@@ -346,7 +380,7 @@ const SignupForm = ({ handleFormSubmit }) => {
             />
           </div>
 
-          <div className={`${classes.formRow} ${classes.submitBtn}`}>
+          <div className={classes.formRow}>
             <Button
               classes={{ root: classes.submitBtnRoot }}
               type="submit"

@@ -6,8 +6,8 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import GitHubIcon from "@material-ui/icons/GitHub";
 import Tooltip from "@material-ui/core/Tooltip";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const useStyles = makeStyles((theme) => ({
   iconBtnContainer: {
@@ -24,12 +24,15 @@ const useStyles = makeStyles((theme) => ({
     },
     "& a": {
       color: "white",
-      opacity: 0.9,
+      opacity: 0.95,
       "&:hover": {
         opacity: 1,
       },
     },
   }),
+  googleIconBtn: {
+    fontSize: "2.1875rem",
+  },
   [theme.breakpoints.down("xs")]: {
     iconBtnContainer: {
       top: ".2rem",
@@ -47,15 +50,22 @@ const ProviderIcon = ({ colors, provider }) => {
         <TwitterIcon fontSize="large" />
       </a>
     ) : provider === "github" ? (
-      <GitHubIcon fontSize="large" />
+      <a href="https://www.github.com/kblair40">
+        <GitHubIcon fontSize="large" />
+      </a>
     ) : (
-      <p>GOOGLE</p>
+      <a href="https://www.google.com">
+        <FontAwesomeIcon
+          className={classes.googleIconBtn}
+          fontSize="large"
+          icon={faGoogle}
+        />
+      </a>
     );
   };
 
   const toTitleCase = (provider) => {
     provider = provider[0].toUpperCase() + provider.slice(1);
-    console.log("PROVIDER:", provider);
     return provider;
   };
 
