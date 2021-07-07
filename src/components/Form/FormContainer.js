@@ -53,8 +53,8 @@ const FormContainer = () => {
         setIsLoading(false);
         if (res.ok) {
           if (isSignupMode) {
-            console.log("RETURNING", res.json());
-            return res.json();
+            console.log("RETURNING", res);
+            return res;
           } else {
             console.log("RETURNING", res);
             return res.json();
@@ -81,8 +81,12 @@ const FormContainer = () => {
               expTime: expirationTime.getTime(),
             })
           );
+          console.log("replacing history with success");
+          history.replace("/success");
+        } else {
+          console.log("replacing history with login");
+          history.replace("/login");
         }
-        history.replace("/login");
       })
       .catch((err) => {
         let msg = err.message;

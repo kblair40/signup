@@ -113,7 +113,7 @@ const FormPopperContent = ({ targetName }) => {
               </p>
             </div>
             <div className={classes.validationRow}>
-              {!passwordHasInvalidChars ? (
+              {passwordHasInvalidChars ? (
                 <CancelOutlinedIcon className={classes.errorIcon} />
               ) : (
                 <CheckCircleOutlinedIcon className={classes.validIcon} />

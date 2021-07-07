@@ -7,9 +7,10 @@ import Success from "./components/Success/Success";
 import FormContainer from "./components/Form/FormContainer";
 
 // COLORS:
-// Success: #5dca36
-// error: #ff4244
-// Others - aqua spring: #effaf6, elm: #1d6d86, black: #0c0c0d, grey: #a0a1a1, piston blue: #4ebeef, copper: #af8536, brown/sepia: #6c3510
+// Success: #5dca36 / rgb(93,202,54)
+// error: #ff4244 / rgb(255,66,68)
+// elm: #1d6d86 / rgb(29,109,134)
+// Others - aqua spring: #effaf6, , black: #0c0c0d, grey: #a0a1a1, piston blue: #4ebeef, copper: #af8536, brown/sepia: #6c3510
 
 // FONTS - COMFORTAA & MONTSERRAT
 

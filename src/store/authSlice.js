@@ -14,7 +14,10 @@ const validators = {
     return generalRegex.test(email) && endRegex.test(email);
   },
   passwordChars: (password) => {
-    const regex = /^[a-z0-9?!@#$%^&*]$/i;
+    console.log("password received:", password);
+    const regex = /^[a-zA-Z0-9_!@$&*]{1,20}$/i;
+    console.log("returning", regex.test(password));
+    return regex.test(password);
   },
   passwordLength: (password) =>
     // must be at least 8 characters and no more than 16 characters

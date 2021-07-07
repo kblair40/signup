@@ -41,8 +41,6 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Montserrat, sans-serif",
     "& p": {
       textAlign: "center",
-      position: "relative",
-      // top: "2rem",
     },
     "& a": {
       textDecoration: "none",
@@ -57,11 +55,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   submitBtnRoot: {
-    background: "#ff4244",
+    background: "rgba(29,109,134,.9)",
     fontFamily: "Montserrat, sans-serif",
     fontWeight: 600,
     "&:hover": {
-      background: "#ff4244",
+      background: "rgb(29,109,134)",
     },
   },
   labelNotTouched: {
@@ -188,9 +186,33 @@ const SignupForm = ({ handleFormSubmit }) => {
   };
 
   const handleSubmit = (e) => {
+    console.log("chars:", passwordHasInvalidChars);
+    console.log("length:", passwordHasInvalidLength);
     e.preventDefault();
-    handleFormSubmit(emailInput, passwordInput, "signup");
-    dispatch(authActions.clearForm());
+    let errorMsg = "";
+    if (usernameInput.trim() === "" || usernameHasInvalidLength) {
+      errorMsg =
+        "Please enter a username between 7 and 15 characters in length, consisting only of letters and numbers";
+    } else if (usernameHasInvalidChars) {
+      errorMsg = "Username can only contain letters and numbers";
+    } else if (emailInput.trim() === "") {
+      errorMsg = "Please enter an email address";
+    } else if (!emailHasError) {
+      errorMsg = "That is not a valid email address";
+    } else if (passwordInput.trim() === "" || passwordHasInvalidLength) {
+      errorMsg =
+        "Please enter a password between 8 and 16 characters in length, consisting only of letters and numbers";
+    } else if (passwordHasInvalidChars) {
+      errorMsg =
+        "Your password contains invalid characters.  Valid characters include letters, numbers and the following symbols: ?!@#$%^&*-_";
+    } else if (!passwordsMatch) {
+      errorMsg = "Passwords do not match";
+    } else {
+      handleFormSubmit(emailInput, passwordInput, "signup");
+      dispatch(authActions.clearForm());
+    }
+
+    console.log("ERROR MESSAGE:", errorMsg);
   };
 
   return (
@@ -265,7 +287,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               className={
                 !hasBeenTouched.password || passwordInput === ""
                   ? classes.labelNotTouched
-                  : !passwordHasInvalidLength && passwordHasInvalidChars
+                  : !passwordHasInvalidLength && !passwordHasInvalidChars
                   ? classes.labelValid
                   : classes.labelError
               }
@@ -279,7 +301,7 @@ const SignupForm = ({ handleFormSubmit }) => {
                 root:
                   !hasBeenTouched.password || passwordInput === ""
                     ? classes.inputNotTouched
-                    : !passwordHasInvalidLength && passwordHasInvalidChars
+                    : !passwordHasInvalidLength && !passwordHasInvalidChars
                     ? classes.inputValid
                     : classes.inputError,
               }}

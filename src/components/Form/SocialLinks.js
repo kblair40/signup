@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
       width: "32%",
       fontFamily: "Montserrat",
       fontSize: ".7rem",
+      fontWeight: 600,
     },
   },
   iconBtnContainer: {
