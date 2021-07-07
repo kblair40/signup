@@ -23,7 +23,13 @@ const FormContainer = () => {
   // add to redux state to decide if in sign-in or create-account mode - or maybe useParams with react-router
   //   const mode = "signup"; // hard-coding for now
 
-  const handleFormSubmit = (email, password, mode) => {
+  const handleFormSubmit = (email, password, mode, errorMsg = null) => {
+    if (errorMsg && errorMsg !== "") {
+      dispatch(authActions.setError({ msg: errorMsg }));
+      // dispatch(authActions.clearForm());
+
+      return;
+    }
     dispatch(authActions.clearForm());
     const isSignupMode = mode === "signup";
     setMode(mode);
@@ -95,7 +101,6 @@ const FormContainer = () => {
           msg = "That is not a valid email address!";
         }
         dispatch(authActions.setError({ msg }));
-        // alert(err.message);
       });
   };
   console.log("IS LOGGED IN?", isLoggedIn);

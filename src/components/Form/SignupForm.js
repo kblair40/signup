@@ -207,10 +207,11 @@ const SignupForm = ({ handleFormSubmit }) => {
         "Your password contains invalid characters.  Valid characters include letters, numbers and the following symbols: ?!@#$%^&*-_";
     } else if (!passwordsMatch) {
       errorMsg = "Passwords do not match";
-    } else {
-      handleFormSubmit(emailInput, passwordInput, "signup");
-      dispatch(authActions.clearForm());
     }
+    // else {
+    handleFormSubmit(emailInput, passwordInput, "signup", errorMsg);
+    // dispatch(authActions.clearForm());
+    // }
 
     console.log("ERROR MESSAGE:", errorMsg);
   };
