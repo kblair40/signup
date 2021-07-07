@@ -11,6 +11,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { authActions } from "../../store/authSlice";
+import { providerActions } from "../../store/providerSlice";
 import { socialMediaAuth } from "../../service/auth";
 import {
   googleProvider,
@@ -100,10 +101,18 @@ const SocialLinks = () => {
     if (success) {
       console.log("SUCCESS");
       const { credential, token, user } = res;
+      const provider = credential.providerId;
+      // console.log("PROVIDER:", provider);
       console.log("credential:", credential);
-      console.log("token:", token);
-      console.log("user:", user);
-      dispatch(authActions.login({ token: token, expTime: 4565198475 }));
+      // console.log("token:", token);
+      // console.log("user:", user);
+      dispatch(
+        authActions.login({
+          token: token,
+          expTime: 4565198475,
+        })
+      );
+      dispatch(providerActions.setProvider({ provider: provider }));
     } else {
       console.log("FAIL");
       const { errorMessage } = res;

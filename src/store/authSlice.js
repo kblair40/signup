@@ -88,7 +88,6 @@ const authSlice = createSlice({
     },
     login(state, action) {
       const { token, expTime } = action.payload;
-
       state.token = token;
       state.remainingTime = expTime;
       state.isLoggedIn = true;

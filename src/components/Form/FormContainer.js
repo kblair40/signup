@@ -26,8 +26,6 @@ const FormContainer = () => {
   const handleFormSubmit = (email, password, mode, errorMsg = null) => {
     if (errorMsg && errorMsg !== "") {
       dispatch(authActions.setError({ msg: errorMsg }));
-      // dispatch(authActions.clearForm());
-
       return;
     }
     dispatch(authActions.clearForm());
