@@ -1,6 +1,7 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Button from "@material-ui/core/Button";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   logoutBtnRoot: (colors) => ({
@@ -16,7 +17,15 @@ const useStyles = makeStyles((theme) => ({
   }),
 }));
 
-const LogoutButton = ({ colors, handleLogout }) => {
+const LogoutButton = ({
+  // colors,
+  handleLogout,
+}) => {
+  // const colors = useSelector((state) => state.provider.colors);
+  // const font = useSelector((state) => state.provider.font);
+  // const colors = useSelector((state) => state.provider.colors);
+  const colors = JSON.parse(localStorage.getItem("colors"));
+  console.log("local storage", localStorage.getItem("colors"));
   const classes = useStyles(colors);
   return (
     <Button

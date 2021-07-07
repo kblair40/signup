@@ -46,15 +46,15 @@ const ProviderIcon = ({ colors, provider }) => {
 
   const setIcon = (provider) => {
     return provider === "twitter" ? (
-      <a href="https://www.twitter.com">
+      <a href="https://www.twitter.com" target="blank">
         <TwitterIcon fontSize="large" />
       </a>
     ) : provider === "github" ? (
-      <a href="https://www.github.com/kblair40">
+      <a href="https://www.github.com/kblair40" target="blank">
         <GitHubIcon fontSize="large" />
       </a>
     ) : (
-      <a href="https://www.google.com">
+      <a href="https://www.google.com" target="blank">
         <FontAwesomeIcon
           className={classes.googleIconBtn}
           fontSize="large"

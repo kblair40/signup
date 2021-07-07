@@ -95,11 +95,23 @@ const authSlice = createSlice({
 
       localStorage.setItem("token", token);
       localStorage.setItem("expirationTime", expTime);
+      localStorage.setItem(
+        "colors",
+        JSON.stringify({
+          main: "#212121",
+          black: "#0c0c0d",
+          red: "#ff4244",
+        })
+      );
+      localStorage.setItem("provider", "email");
     },
     logout(state) {
       state.token = null;
       state.expirationTime = 0;
       state.isLoggedIn = false;
+      localStorage.removeItem("colors");
+      localStorage.removeItem("font");
+      localStorage.removeItem("mainColor");
       localStorage.removeItem("token");
       localStorage.removeItem("expirationTime");
     },

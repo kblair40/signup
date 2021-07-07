@@ -100,6 +100,7 @@ const FormContainer = () => {
       });
   };
   console.log("IS LOGGED IN?", isLoggedIn);
+
   return (
     <div>
       {location.pathname === "/signup" ? (

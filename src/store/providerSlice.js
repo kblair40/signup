@@ -33,14 +33,16 @@ const fonts = {
   twitter: "system-ui",
   google: "Roboto",
   github: "system-ui",
+  email: "Montserrat",
 };
 
 const providerSlice = createSlice({
   name: "provider",
   initialState: {
-    authProvider: "email",
-    colors: {},
-    font: "",
+    // authProvider: "email",
+    authProvider: localStorage.getItem("provider"),
+    colors: localStorage.getItem("colors") || {},
+    font: localStorage.getItem("font"),
   },
   reducers: {
     setProvider(state, action) {
@@ -49,6 +51,10 @@ const providerSlice = createSlice({
       state.authProvider = provider;
       state.colors = colors[provider];
       state.font = fonts[provider];
+      localStorage.setItem("colors", JSON.stringify(colors[provider]));
+      localStorage.setItem("font", JSON.stringify(fonts[provider]));
+      localStorage.setItem("provider", provider);
+      localStorage.setItem("mainColor", colors[provider].main);
     },
   },
 });

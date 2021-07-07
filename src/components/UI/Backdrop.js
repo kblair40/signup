@@ -17,7 +17,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Backdrop = (props) => {
-  const classes = useStyles(props);
+  console.log("BACKDROP PROPS:", props);
+  let color = props.color;
+  if (!color) {
+    color = localStorage.getItem("mainColor");
+  }
+  const classes = useStyles({ color });
   const location = useLocation();
   const provider = useSelector((state) => state.provider.authProvider);
 

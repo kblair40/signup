@@ -68,8 +68,8 @@ const Success = () => {
 
   const handleLogout = () => {
     socialMediaLogout();
-    dispatch(authActions.logout());
-    dispatch(providerActions.setProvider({ provider: "email" }));
+    dispatch(authActions.logout({ font: font, colors: colors }));
+    // dispatch(providerActions.setProvider({ provider: "email" }));
     history.replace("/login");
   };
   return (
@@ -77,7 +77,10 @@ const Success = () => {
       <div className={classes.successContainer}>
         <Card elevation={0} classes={{ root: classes.successCard }}>
           <h1>SUCCESSFULLY LOGGED IN!</h1>
-          <LogoutButton handleLogout={handleLogout} colors={colors} />
+          <LogoutButton
+            handleLogout={handleLogout}
+            // colors={colors}
+          />
         </Card>
       </div>
     </Backdrop>
