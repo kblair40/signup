@@ -1,6 +1,6 @@
 import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -14,8 +14,8 @@ import LogoutButton from "./LogoutButton";
 const useStyles = makeStyles((theme) => ({
   successContainer: (styles) => ({
     height: "100vh",
-    // fontFamily: "Montserrat",
     fontFamily: styles.font,
+    color: styles.colors.black,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -75,7 +75,6 @@ const Success = () => {
       <div className={classes.successContainer}>
         <Card elevation={0} classes={{ root: classes.successCard }}>
           <h1>SUCCESSFULLY LOGGED IN!</h1>
-          <h3>{provider}</h3>
           <LogoutButton handleLogout={handleLogout} colors={colors} />
         </Card>
       </div>
