@@ -76,8 +76,16 @@ const useStyles = makeStyles((theme) => ({
       background: "rgb(29,161,242)",
     },
   },
+  [theme.breakpoints.down("sm")]: {
+    socialLinksContainer: {
+      position: "relative",
+      top: "1rem",
+    },
+  },
   [theme.breakpoints.down("xs")]: {
     socialLinksContainer: {
+      //   position: "relative",
+      top: "2rem",
       justifyContent: "space-evenly",
       alignItems: "center",
       "& button": {

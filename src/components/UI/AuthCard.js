@@ -15,11 +15,12 @@ const useStyles = makeStyles((theme) => ({
   },
   authCard: {
     height: "80%",
-    maxHeight: "40rem",
+    maxHeight: "42rem",
     minHeight: "35rem",
     width: "55%",
     minWidth: "22rem",
     maxWidth: "34rem",
+    overflowY: "auto",
   },
   cardHeader: {
     fontSize: "1.8rem",
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   [theme.breakpoints.down("sm")]: {
     authCard: {
       width: "80vw",
+      height: "90%",
     },
   },
   [theme.breakpoints.down("xs")]: {

@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100vh",
     position: "relative",
     width: "100vw",
+    overflowY: "auto",
   }),
 }));
 

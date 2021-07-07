@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   formRow: {
-    margin: ".4rem 0",
+    margin: ".75rem 0",
     width: "80%",
     fontFamily: "Montserrat, sans-serif",
     "& p": {
@@ -106,14 +106,35 @@ const useStyles = makeStyles((theme) => ({
       borderColor: "#ff4244",
     },
   },
-  [theme.breakpoints.down("sm")]: {},
-  [theme.breakpoints.down("xs")]: {
+  [theme.breakpoints.down("sm")]: {
     formRow: {
-      margin: ".75rem 0",
+      margin: ".4rem 0",
       width: "90%",
       "& p": {
         position: "static",
       },
+    },
+    form: {
+      position: "relative",
+      top: "1rem",
+    },
+    switchMode: {
+      position: "relative",
+      top: "1rem",
+    },
+  },
+  [theme.breakpoints.down("xs")]: {
+    formRow: {
+      margin: ".75rem 0",
+      width: "90%",
+    },
+    switchMode: {
+      position: "relative",
+      top: "2rem",
+    },
+    form: {
+      position: "relative",
+      top: "2rem",
     },
   },
 }));
@@ -266,7 +287,9 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={usernameInput}
             />
-            <UsernameRule />
+            <Hidden mdUp>
+              <UsernameRule />
+            </Hidden>
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -299,7 +322,9 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={emailInput}
             />
-            <EmailRule />
+            <Hidden mdUp>
+              <EmailRule />
+            </Hidden>
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -343,7 +368,9 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={passwordInput}
             />
-            <PasswordRule />
+            <Hidden mdUp>
+              <PasswordRule />
+            </Hidden>
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -386,7 +413,9 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={confirmPasswordInput}
             />
-            <ConfirmPasswordRule />
+            <Hidden mdUp>
+              <ConfirmPasswordRule />
+            </Hidden>
           </div>
 
           <div className={classes.formRow}>
@@ -403,10 +432,12 @@ const SignupForm = ({ handleFormSubmit }) => {
           </div>
         </form>
         <SocialLinks />
-        <div className={classes.formRow}>
+        <div className={`${classes.formRow} ${classes.switchMode}`}>
+          {/* <div className={classes.switchMode}> */}
           <p>
             Already have an account? <Link to="/login">Login</Link>
           </p>
+          {/* </div> */}
         </div>
       </div>
     </AuthCard>
