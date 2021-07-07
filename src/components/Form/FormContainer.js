@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
 
 const FormContainer = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const history = useHistory();
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
-  const [mode, setMode] = useState("signup");
-  const [user, setUser] = useState(null);
 
   const apiKey = "AIzaSyDzq0qel4UDBQYRFEFDJPLLS-kPSpjRIl4";
   const signupUrl =
@@ -28,15 +25,12 @@ const FormContainer = () => {
     }
     dispatch(authActions.clearForm());
     const isSignupMode = mode === "signup";
-    setMode(mode);
     setIsLoading(true);
 
     let url;
     if (isSignupMode) {
-      console.log("SIGN UP");
       url = signupUrl + apiKey;
     } else {
-      console.log("LOGIN");
       url = loginUrl + apiKey;
     }
 
@@ -73,33 +67,24 @@ const FormContainer = () => {
       })
       .then((data) => {
         if (!isSignupMode) {
-          const expirationTime = new Date(
-            new Date().getTime() + +data.expiresIn * 1000
-          );
-          console.log("ATTEMPTING LOG IN");
           dispatch(
             authActions.login({
               token: data.idToken,
-              expTime: expirationTime.getTime(),
             })
           );
-          console.log("replacing history with success");
           history.replace("/success");
         } else {
-          console.log("replacing history with login");
           history.replace("/login");
         }
       })
       .catch((err) => {
         let msg = err.message;
-        console.log("CODE:", err);
         if ((msg = "INVALID_EMAIL")) {
           msg = "That is not a valid email address!";
         }
         dispatch(authActions.setError({ msg }));
       });
   };
-  console.log("IS LOGGED IN?", isLoggedIn);
 
   return (
     <div>

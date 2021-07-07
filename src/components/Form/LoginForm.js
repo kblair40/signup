@@ -150,7 +150,7 @@ const LoginForm = ({ handleFormSubmit }) => {
               <InputLabel className={classes.label}>Password</InputLabel>
               <Input
                 name="password"
-                type="text"
+                type="password"
                 classes={{ root: classes.inputRoot }}
                 inputProps={{
                   ref: passwordInputRef,

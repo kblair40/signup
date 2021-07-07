@@ -100,16 +100,11 @@ const SocialLinks = () => {
     const { success } = res;
     if (success) {
       console.log("SUCCESS");
-      const { credential, token, user } = res;
+      const { credential, token } = res;
       const provider = credential.providerId;
-      // console.log("PROVIDER:", provider);
-      console.log("credential:", credential);
-      // console.log("token:", token);
-      // console.log("user:", user);
       dispatch(
         authActions.login({
           token: token,
-          expTime: 4565198475,
         })
       );
       dispatch(providerActions.setProvider({ provider: provider }));

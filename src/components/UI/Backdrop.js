@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Fade from "@material-ui/core/Fade";
 import { useSelector } from "react-redux";
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Backdrop = (props) => {
-  console.log("BACKDROP PROPS:", props);
   let color = props.color;
   if (!color) {
     color = localStorage.getItem("mainColor");

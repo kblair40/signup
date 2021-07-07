@@ -40,7 +40,6 @@ const initialAuthState = {
   errorMessage: "",
   isLoggedIn: Boolean(localStorage.getItem("token")),
   token: localStorage.getItem("token"),
-  remainingTime: localStorage.getItem("expirationTime"),
   mode: "signup",
   formIsValid: false,
 };
@@ -88,13 +87,11 @@ const authSlice = createSlice({
       state.confirmPasswordInput = "";
     },
     login(state, action) {
-      const { token, expTime } = action.payload;
+      const { token } = action.payload;
       state.token = token;
-      state.remainingTime = expTime;
       state.isLoggedIn = true;
 
       localStorage.setItem("token", token);
-      localStorage.setItem("expirationTime", expTime);
       localStorage.setItem(
         "colors",
         JSON.stringify({
@@ -113,7 +110,7 @@ const authSlice = createSlice({
       localStorage.removeItem("font");
       localStorage.removeItem("mainColor");
       localStorage.removeItem("token");
-      localStorage.removeItem("expirationTime");
+      localStorage.removeItem("provider");
     },
     setError(state, action) {
       const { msg } = action.payload;

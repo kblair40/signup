@@ -126,14 +126,6 @@ const SignupForm = ({ handleFormSubmit }) => {
     password: false,
     confirmPassword: false,
   });
-  const [isValid, setIsValid] = useState({
-    username: false,
-    email: false,
-    password: false,
-    confirmPassword: false,
-  });
-  const [confirmPasswordHasBeenTouched, setConfirmPasswordHasBeenTouched] =
-    useState(false);
 
   const dispatch = useDispatch();
 
@@ -180,7 +172,7 @@ const SignupForm = ({ handleFormSubmit }) => {
     const email = e.target.value;
     setHasBeenTouched((state) => ({ ...state, email: true }));
 
-    dispatch(authActions.handleEmailChange({ email: e.target.value }));
+    dispatch(authActions.handleEmailChange({ email: email }));
   };
 
   const handlePasswordChange = (e) => {

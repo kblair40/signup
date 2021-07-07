@@ -39,7 +39,6 @@ const fonts = {
 const providerSlice = createSlice({
   name: "provider",
   initialState: {
-    // authProvider: "email",
     authProvider: localStorage.getItem("provider"),
     colors: localStorage.getItem("colors") || {},
     font: localStorage.getItem("font"),

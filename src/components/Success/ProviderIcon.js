@@ -65,17 +65,26 @@ const ProviderIcon = ({ colors, provider }) => {
   };
 
   const toTitleCase = (provider) => {
-    provider = provider[0].toUpperCase() + provider.slice(1);
-    return provider;
+    try {
+      provider = provider[0].toUpperCase() + provider.slice(1);
+    } catch {
+      return provider;
+    }
   };
 
   return (
     <div className={classes.iconBtnContainer}>
-      <Tooltip title={`Go to ${toTitleCase(provider)}`} placement="left" arrow>
-        <IconButton className={classes.iconColor}>
-          {setIcon(provider)}
-        </IconButton>
-      </Tooltip>
+      {provider && (
+        <Tooltip
+          title={`Go to ${toTitleCase(provider)}`}
+          placement="left"
+          arrow
+        >
+          <IconButton className={classes.iconColor}>
+            {setIcon(provider)}
+          </IconButton>
+        </Tooltip>
+      )}
     </div>
   );
 };

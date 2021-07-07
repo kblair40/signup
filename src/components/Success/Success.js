@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 // import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
-import { providerActions } from "../../store/providerSlice";
 
 import { socialMediaLogout } from "../../service/auth";
 import Backdrop from "../UI/Backdrop";
@@ -27,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
       textAlign: "center",
     },
     "& h3": {
-      marginTop: 0,
       textAlign: "center",
+      fontFamily: "Montserrat",
     },
   }),
   successCard: {
@@ -60,27 +59,42 @@ const useStyles = makeStyles((theme) => ({
 const Success = () => {
   const colors = useSelector((state) => state.provider.colors);
   const font = useSelector((state) => state.provider.font);
-  // const provider = useSelector((state) => state.provider.authProvider);
+  const provider = useSelector((state) => state.provider.authProvider);
   const classes = useStyles({ colors, font });
+  const [timeUntilLogout, setTimeUntilLogout] = useState(30);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
+  let timer, forceLogout;
+  useEffect(() => {
+    timer = setInterval(() => {
+      setTimeUntilLogout((state) => state - 1);
+    }, 1000);
+
+    const forceLogout = setTimeout(() => {
+      handleLogout();
+      clearInterval(timer);
+    }, 30000);
+  }, []);
+
   const handleLogout = () => {
     socialMediaLogout();
     dispatch(authActions.logout({ font: font, colors: colors }));
-    // dispatch(providerActions.setProvider({ provider: "email" }));
+    clearInterval(timer);
+    clearTimeout(forceLogout);
     history.replace("/login");
   };
   return (
     <Backdrop color={colors.main}>
       <div className={classes.successContainer}>
         <Card elevation={0} classes={{ root: classes.successCard }}>
-          <h1>SUCCESSFULLY LOGGED IN!</h1>
-          <LogoutButton
-            handleLogout={handleLogout}
-            // colors={colors}
-          />
+          <h1>
+            YOU ARE LOGGED IN WITH {provider ? provider.toUpperCase() : "EMAIL"}
+            !
+          </h1>
+          <h3>You will be logged out in {timeUntilLogout} seconds!</h3>
+          <LogoutButton handleLogout={handleLogout} />
         </Card>
       </div>
     </Backdrop>

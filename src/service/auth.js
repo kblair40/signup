@@ -14,15 +14,12 @@ export const socialMediaAuth = (provider) => {
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+
       // The email of the user's account used.
       const email = error.email;
+
       // The firebase.auth.AuthCredential type that was used.
       const credential = error.credential;
-      console.log("ERROR");
-      console.log("errorCode", errorCode);
-      console.log("errorMessage", errorMessage);
-      console.log("email", email);
-      console.log("credential", credential);
       return { success: false, errorMessage, email };
     });
 };
