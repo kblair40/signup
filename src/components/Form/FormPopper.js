@@ -7,12 +7,15 @@ import Slide from "@material-ui/core/Slide";
 import FormPopperContent from "./FormPopperContent";
 
 const useStyles = makeStyles((theme) => ({
-  popperContainer: {},
+  popperContainer: {
+    position: "relative",
+  },
   paperRoot: {
     minWidth: "10rem",
     minHeight: "auto",
     display: "flex",
     alignItems: "center",
+    border: "1px solid rgba(0,0,0,0.1)",
     // background: "transparent",
   },
 }));
@@ -26,8 +29,8 @@ const FormPopper = ({ anchorEl, open, targetName }) => {
         id={id}
         open={open}
         anchorEl={anchorEl}
-        // placement="right-end"
         placement="right-end"
+        // placement="right-end"
         popperOptions={{
           modifiers: {
             flip: {
@@ -35,17 +38,20 @@ const FormPopper = ({ anchorEl, open, targetName }) => {
             },
             offset: {
               // 2nd arg pushes on x-axis
-              offset: "-2px, 0",
+              offset: "0, 2px",
             },
             preventOverflow: {
-              // enabled: false,
+              enabled: false,
+            },
+            hide: {
+              enabled: false,
             },
           },
         }}
         transition
       >
         <Slide direction="left" in={open} mountOnEnter unmountOnExit>
-          <Paper elevation={1} classes={{ root: classes.paperRoot }}>
+          <Paper elevation={0} classes={{ root: classes.paperRoot }}>
             <FormPopperContent anchorEl={anchorEl} targetName={targetName} />
           </Paper>
         </Slide>

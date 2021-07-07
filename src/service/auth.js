@@ -12,14 +12,14 @@ export const socialMediaAuth = (provider) => {
       return { success: true, credential, token, user };
     })
     .catch((error) => {
-      const errorCode = error.code;
+      // const errorCode = error.code;
       const errorMessage = error.message;
 
       // The email of the user's account used.
       const email = error.email;
 
       // The firebase.auth.AuthCredential type that was used.
-      const credential = error.credential;
+      // const credential = error.credential;
       return { success: false, errorMessage, email };
     });
 };
@@ -37,5 +37,3 @@ export const socialMediaLogout = () => {
       console.log("FAILED TO SIGN OUT");
     });
 };
-
-// export  socialMediaAuth;

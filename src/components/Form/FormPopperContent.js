@@ -2,7 +2,9 @@ import React, { Fragment } from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import CheckCircleOutlinedIcon from "@material-ui/icons/CheckCircleOutlined";
 import CancelOutlinedIcon from "@material-ui/icons/CancelOutlined";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { authActions } from "../../store/authSlice";
 
 const useStyles = makeStyles((theme) => ({
   formPopperContentContainer: {
@@ -39,8 +41,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }));
+
 const FormPopperContent = ({ targetName }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const usernameHasInvalidLength = useSelector(
     (state) => state.auth.usernameHasInvalidLength
@@ -56,6 +60,15 @@ const FormPopperContent = ({ targetName }) => {
     (state) => state.auth.passwordHasInvalidLength
   );
   const passwordsMatch = useSelector((state) => state.auth.passwordsMatch);
+  const passwordInput = useSelector((state) => state.auth.passwordInput);
+
+  const passwordHasDigit = (pwd) => {
+    const hasDigit = /[0-9]/.test(pwd);
+    if (hasDigit) {
+      dispatch(authActions.setPasswordHasDigit());
+    }
+    return hasDigit;
+  };
 
   const popperContent = () => {
     return (
@@ -121,6 +134,14 @@ const FormPopperContent = ({ targetName }) => {
               <p className={classes.rule}>
                 Password does not include any invalid characters
               </p>
+            </div>
+            <div className={classes.validationRow}>
+              {!passwordHasDigit(passwordInput) ? (
+                <CancelOutlinedIcon className={classes.errorIcon} />
+              ) : (
+                <CheckCircleOutlinedIcon className={classes.validIcon} />
+              )}
+              <p className={classes.rule}>Password has at least one digit</p>
             </div>
           </div>
         ) : (

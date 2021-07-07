@@ -7,6 +7,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
+import Hidden from "@material-ui/core/Hidden";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,6 +15,10 @@ import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
+import UsernameRule from "./Rules/UsernameRule";
+import EmailRule from "./Rules/EmailRule";
+import PasswordRule from "./Rules/PasswordRule";
+import ConfirmPasswordRule from "./Rules/ConfirmPasswordRule";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -39,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   formRow: {
-    margin: ".75rem 0",
+    margin: ".4rem 0",
     width: "80%",
     fontFamily: "Montserrat, sans-serif",
     "& p": {
@@ -146,6 +151,7 @@ const SignupForm = ({ handleFormSubmit }) => {
   const passwordHasInvalidLength = useSelector(
     (state) => state.auth.passwordHasInvalidLength
   );
+  const passwordHasDigit = useSelector((state) => state.auth.passwordHasDigit);
   const confirmPasswordInput = useSelector(
     (state) => state.auth.confirmPasswordInput
   );
@@ -224,7 +230,9 @@ const SignupForm = ({ handleFormSubmit }) => {
 
   return (
     <AuthCard>
-      <FormPopper open={open} anchorEl={anchorEl} targetName={targetName} />
+      <Hidden mdDown>
+        <FormPopper open={open} anchorEl={anchorEl} targetName={targetName} />
+      </Hidden>
       <div className={classes.formContainer}>
         <form onSubmit={handleSubmit} className={classes.form}>
           <div className={classes.formRow}>
@@ -254,9 +262,11 @@ const SignupForm = ({ handleFormSubmit }) => {
               inputProps={{
                 onKeyPress: handleKeyPress,
                 onBlur: handleInputblur,
+                autoComplete: "off",
               }}
               value={usernameInput}
             />
+            <UsernameRule />
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -285,9 +295,11 @@ const SignupForm = ({ handleFormSubmit }) => {
               inputProps={{
                 onKeyPress: handleKeyPress,
                 onBlur: handleInputblur,
+                autoComplete: "off",
               }}
               value={emailInput}
             />
+            <EmailRule />
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -308,7 +320,9 @@ const SignupForm = ({ handleFormSubmit }) => {
                 root:
                   !hasBeenTouched.password || passwordInput === ""
                     ? classes.inputNotTouched
-                    : !passwordHasInvalidLength && !passwordHasInvalidChars
+                    : !passwordHasInvalidLength &&
+                      !passwordHasInvalidChars &&
+                      passwordHasDigit
                     ? classes.inputValid
                     : classes.inputError,
               }}
@@ -324,11 +338,12 @@ const SignupForm = ({ handleFormSubmit }) => {
               }
               type={showPassword ? "text" : "password"}
               inputProps={{
-                onKeyPress: handleKeyPress,
+                onKeyDown: handleKeyPress,
                 onBlur: handleInputblur,
               }}
               value={passwordInput}
             />
+            <PasswordRule />
           </div>
           <div className={classes.formRow}>
             <InputLabel
@@ -365,11 +380,13 @@ const SignupForm = ({ handleFormSubmit }) => {
               }
               type={showConfirmPassword ? "text" : "password"}
               inputProps={{
-                onKeyPress: handleKeyPress,
+                // onKeyDown: handleKeyPress,
+                onKeyUp: handleKeyPress,
                 onBlur: handleInputblur,
               }}
               value={confirmPasswordInput}
             />
+            <ConfirmPasswordRule />
           </div>
 
           <div className={classes.formRow}>

@@ -66,13 +66,13 @@ const Success = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  let timer, forceLogout;
+  let timer;
   useEffect(() => {
     timer = setInterval(() => {
       setTimeUntilLogout((state) => state - 1);
     }, 1000);
 
-    const forceLogout = setTimeout(() => {
+    setTimeout(() => {
       handleLogout();
       clearInterval(timer);
     }, 30000);
@@ -82,7 +82,6 @@ const Success = () => {
     socialMediaLogout();
     dispatch(authActions.logout({ font: font, colors: colors }));
     clearInterval(timer);
-    clearTimeout(forceLogout);
     history.replace("/login");
   };
   return (

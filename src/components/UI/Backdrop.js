@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Fade from "@material-ui/core/Fade";
 import { useSelector } from "react-redux";

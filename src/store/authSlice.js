@@ -14,9 +14,7 @@ const validators = {
     return generalRegex.test(email) && endRegex.test(email);
   },
   passwordChars: (password) => {
-    console.log("password received:", password);
     const regex = /^[a-zA-Z0-9_!@$&*]{1,20}$/i;
-    console.log("returning", regex.test(password));
     return regex.test(password);
   },
   passwordLength: (password) =>
@@ -34,6 +32,7 @@ const initialAuthState = {
   passwordInput: "",
   passwordHasInvalidLength: false,
   passwordHasInvalidChars: false,
+  passwordHasDigit: false,
   confirmPasswordInput: "",
   PasswordsMatch: false,
   errorModalShowing: false,
@@ -121,6 +120,9 @@ const authSlice = createSlice({
     closeErrorModal(state) {
       state.errorMessage = "";
       state.errorModalShowing = false;
+    },
+    setPasswordHasDigit(state) {
+      state.passwordHasDigit = true;
     },
   },
 });

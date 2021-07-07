@@ -49,10 +49,10 @@ const FormContainer = () => {
         setIsLoading(false);
         if (res.ok) {
           if (isSignupMode) {
-            console.log("RETURNING", res);
+            // console.log("RETURNING", res);
             return res;
           } else {
-            console.log("RETURNING", res);
+            // console.log("RETURNING", res);
             return res.json();
           }
         } else {

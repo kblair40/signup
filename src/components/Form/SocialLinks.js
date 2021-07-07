@@ -99,7 +99,6 @@ const SocialLinks = () => {
     const res = await socialMediaAuth(provider);
     const { success } = res;
     if (success) {
-      console.log("SUCCESS");
       const { credential, token } = res;
       const provider = credential.providerId;
       dispatch(
@@ -109,9 +108,7 @@ const SocialLinks = () => {
       );
       dispatch(providerActions.setProvider({ provider: provider }));
     } else {
-      console.log("FAIL");
       const { errorMessage } = res;
-      console.log("ERROR ERROR MESSAGE...", errorMessage);
       dispatch(authActions.setError({ msg: errorMessage }));
     }
     history.replace("/success");
