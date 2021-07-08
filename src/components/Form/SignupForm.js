@@ -19,6 +19,7 @@ import UsernameRule from "./Rules/UsernameRule";
 import EmailRule from "./Rules/EmailRule";
 import PasswordRule from "./Rules/PasswordRule";
 import ConfirmPasswordRule from "./Rules/ConfirmPasswordRule";
+import RulesAccordion from "./Rules/RulesAccordion";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -407,7 +408,6 @@ const SignupForm = ({ handleFormSubmit }) => {
               }
               type={showConfirmPassword ? "text" : "password"}
               inputProps={{
-                // onKeyDown: handleKeyPress,
                 onKeyUp: handleKeyPress,
                 onBlur: handleInputblur,
               }}
@@ -433,12 +433,11 @@ const SignupForm = ({ handleFormSubmit }) => {
         </form>
         <SocialLinks />
         <div className={`${classes.formRow} ${classes.switchMode}`}>
-          {/* <div className={classes.switchMode}> */}
           <p>
             Already have an account? <Link to="/login">Login</Link>
           </p>
-          {/* </div> */}
         </div>
+        <RulesAccordion />
       </div>
     </AuthCard>
   );

@@ -1,8 +1,6 @@
 TODOS:
     3. force auto logout after set time
     4. manage loading state in FormContainer;
-    5. PopperContent needs to specify invalid characters for username and password
-    6. Add .gov to valid email endings
    
    
    

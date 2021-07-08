@@ -10,7 +10,7 @@ const validators = {
   },
   emailChars: (email) => {
     const generalRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const endRegex = /net|com|org|info|biz|pro|cat|edu$/i;
+    const endRegex = /net|com|org|info|biz|pro|cat|gov|edu$/i;
     return generalRegex.test(email) && endRegex.test(email);
   },
   passwordChars: (password) => {
@@ -25,13 +25,13 @@ const validators = {
 
 const initialAuthState = {
   usernameInput: "",
-  usernameHasInvalidLength: false,
-  usernameHasInvalidChars: false,
+  usernameHasInvalidLength: true,
+  usernameHasInvalidChars: true,
   emailInput: "",
   emailHasError: false,
   passwordInput: "",
-  passwordHasInvalidLength: false,
-  passwordHasInvalidChars: false,
+  passwordHasInvalidLength: true,
+  passwordHasInvalidChars: true,
   passwordHasDigit: false,
   confirmPasswordInput: "",
   PasswordsMatch: false,
