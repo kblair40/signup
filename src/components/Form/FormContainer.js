@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SignupForm from "./SignupForm";
 import LoginForm from "./LoginForm";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
 
@@ -79,8 +79,14 @@ const FormContainer = () => {
       })
       .catch((err) => {
         let msg = err.message;
-        if ((msg = "INVALID_EMAIL")) {
-          msg = "That is not a valid email address!";
+        console.log("MSG:", msg);
+        if (msg === "INVALID_EMAIL") {
+          msg = "That is not a valid email address";
+        } else if (msg === "INVALID_PASSWORD") {
+          msg = "Password is not valid";
+        } else if (msg === "EMAIL_NOT_FOUND") {
+          msg =
+            "There is no account associated with that email address.  Please correct email address or create a new account.";
         }
         dispatch(authActions.setError({ msg }));
       });

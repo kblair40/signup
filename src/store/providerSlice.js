@@ -55,6 +55,11 @@ const providerSlice = createSlice({
       localStorage.setItem("provider", provider);
       localStorage.setItem("mainColor", colors[provider].main);
     },
+    clearStyles(state) {
+      state.colors = {};
+      state.font = undefined;
+      state.authProvider = "email";
+    },
   },
 });
 

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { authActions } from "../../store/authSlice";
+import { providerActions } from "../../store/providerSlice";
 
 import { socialMediaLogout } from "../../service/auth";
 import Backdrop from "../UI/Backdrop";
@@ -61,27 +62,31 @@ const Success = () => {
   const font = useSelector((state) => state.provider.font);
   const provider = useSelector((state) => state.provider.authProvider);
   const classes = useStyles({ colors, font });
-  const [timeUntilLogout, setTimeUntilLogout] = useState(30);
+  const [timeUntilLogout, setTimeUntilLogout] = useState(15);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  let timer;
+  let timer, timeout;
   useEffect(() => {
     timer = setInterval(() => {
       setTimeUntilLogout((state) => state - 1);
     }, 1000);
 
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       handleLogout();
+    }, 15000);
+
+    return function cleanup() {
       clearInterval(timer);
-    }, 30000);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const handleLogout = () => {
     socialMediaLogout();
     dispatch(authActions.logout({ font: font, colors: colors }));
-    clearInterval(timer);
+    dispatch(providerActions.clearStyles());
     history.replace("/login");
   };
   return (

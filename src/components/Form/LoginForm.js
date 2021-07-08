@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import AuthCard from "../UI/AuthCard";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
+import { providerActions } from "../../store/providerSlice";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -121,6 +122,7 @@ const LoginForm = ({ handleFormSubmit }) => {
           msg: "At least make an attempt at providing your email",
         })
       );
+      dispatch(providerActions.setProvider({ provider: "email" }));
       return;
     }
 
