@@ -15,9 +15,6 @@ import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
-import EmailRule from "./Rules/EmailRule";
-import PasswordRule from "./Rules/PasswordRule";
-import ConfirmPasswordRule from "./Rules/ConfirmPasswordRule";
 import UsernameRulesCollapse from "./Rules/UsernameRulesCollapse";
 import EmailRulesCollapse from "./Rules/EmailRulesCollapse";
 import PasswordRulesCollapse from "./Rules/PasswordRulesCollapse";
@@ -209,10 +206,19 @@ const SignupForm = ({ handleFormSubmit }) => {
   };
 
   const handlePasswordChange = (e) => {
+    console.log("password input changed");
     setHasBeenTouched((state) => ({ ...state, password: true }));
+    const password = e.target.value;
+    console.log(password, confirmPasswordInput);
 
-    dispatch(authActions.handlePasswordChange({ password: e.target.value }));
+    dispatch(authActions.handlePasswordChange({ password: password }));
     dispatch(authActions.openPasswordAccordion());
+    dispatch(
+      authActions.comparePasswords({
+        pwd1: password,
+        pwd2: confirmPasswordInput,
+      })
+    );
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -295,7 +301,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={usernameInput}
             />
-            <Hidden mdUp>
+            <Hidden lgUp>
               <UsernameRulesCollapse />
             </Hidden>
           </div>
@@ -330,8 +336,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={emailInput}
             />
-            <Hidden mdUp>
-              {/* <EmailRule /> */}
+            <Hidden lgUp>
               <EmailRulesCollapse />
             </Hidden>
           </div>
@@ -350,6 +355,7 @@ const SignupForm = ({ handleFormSubmit }) => {
             <Input
               name="password"
               onChange={handlePasswordChange}
+              onKeyDown={handlePasswordChange}
               classes={{
                 root:
                   !hasBeenTouched.password || passwordInput === ""
@@ -377,8 +383,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={passwordInput}
             />
-            <Hidden mdUp>
-              {/* <PasswordRule /> */}
+            <Hidden lgUp>
               <PasswordRulesCollapse />
             </Hidden>
           </div>
@@ -422,8 +427,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               }}
               value={confirmPasswordInput}
             />
-            <Hidden mdUp>
-              {/* <ConfirmPasswordRule /> */}
+            <Hidden lgUp>
               <ConfirmPasswordRulesCollapse />
             </Hidden>
           </div>

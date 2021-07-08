@@ -9,8 +9,6 @@ import { useSelector } from "react-redux";
 import ValidIcon from "./ValidIcon";
 import ErrorIcon from "./ErrorIcon";
 
-// import { useSelector, useDispatch } from "react-redux";
-
 const useStyles = makeStyles({
   collapseContainer: {
     // display: "none",

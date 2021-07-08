@@ -83,6 +83,14 @@ const authSlice = createSlice({
       state.confirmPasswordInput = confirmPassword;
       state.passwordsMatch = passwordsMatch;
     },
+    comparePasswords(state, action) {
+      const { pwd1, pwd2 } = action.payload;
+      if (validators.passwordsMatch(pwd1, pwd2)) {
+        state.passwordsMatch = true;
+      } else {
+        state.passwordsMatch = true;
+      }
+    },
     clearForm(state) {
       state.usernameInput = "";
       state.emailInput = "";

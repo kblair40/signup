@@ -4,13 +4,13 @@ import Paper from "@material-ui/core/Paper";
 import Collapse from "@material-ui/core/Collapse";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import Tooltip from "@material-ui/core/Tooltip";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import { useSelector, useDispatch } from "react-redux";
 
 import { authActions } from "../../../store/authSlice";
 import ValidIcon from "./ValidIcon";
 import ErrorIcon from "./ErrorIcon";
-
-// import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   collapseContainer: {
@@ -30,6 +30,12 @@ const useStyles = makeStyles({
     fontSize: ".7rem",
     margin: 0,
     marginLeft: ".5rem",
+  },
+  helpIcon: {
+    marginLeft: ".25rem",
+    "&:hover": {
+      cursor: "help",
+    },
   },
 });
 
@@ -54,7 +60,7 @@ const PasswordRulesCollapse = (props) => {
   };
 
   const isOpen = useSelector((state) => state.auth.passwordAccordionIsOpen);
-
+  const validChars = "_!@$&*";
   return (
     <div className={classes.collapseContainer}>
       <Collapse in={isOpen}>
@@ -68,10 +74,20 @@ const PasswordRulesCollapse = (props) => {
             </ListItem>
             <ListItem className={classes.usernameRule}>
               {passwordHasInvalidChars ? <ErrorIcon /> : <ValidIcon />}
+
               <p className={classes.rule}>
                 {/* ADD TOOLTIP TO SPECIFY WHAT INVALID CHARACTERS ARE */}
                 Password does not include any invalid characters
               </p>
+              <Tooltip
+                title={`Only letters, numbers and the following characters are allowed: ${validChars}`}
+                plaement="right"
+              >
+                <HelpOutlineIcon
+                  className={classes.helpIcon}
+                  fontSize="small"
+                />
+              </Tooltip>
             </ListItem>
             <ListItem className={classes.usernameRule}>
               {!passwordHasDigit(passwordInput) ? <ErrorIcon /> : <ValidIcon />}

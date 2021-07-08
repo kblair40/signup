@@ -6,7 +6,6 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useSelector } from "react-redux";
 
-import { authActions } from "../../../store/authSlice";
 import ValidIcon from "./ValidIcon";
 import ErrorIcon from "./ErrorIcon";
 

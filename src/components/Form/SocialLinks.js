@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
   },
   [theme.breakpoints.down("xs")]: {
     socialLinksContainer: {
-      //   position: "relative",
       top: "2rem",
       justifyContent: "space-evenly",
       alignItems: "center",
@@ -134,6 +133,7 @@ const SocialLinks = () => {
           classes={{ root: classes.twitterBtn }}
           startIcon={<TwitterIcon fontSize="large" />}
           onClick={() => handleLoginClick(twitterProvider)}
+          disableFocusRipple
         >
           {isSignupMode ? "Sign Up" : "Login"} with Twitter
         </Button>
@@ -143,6 +143,7 @@ const SocialLinks = () => {
           classes={{ root: classes.githubBtn }}
           startIcon={<GitHubIcon fontSize="large" />}
           onClick={() => handleLoginClick(githubProvider)}
+          disableFocusRipple
         >
           {isSignupMode ? "Sign Up" : "Login"} with Github
         </Button>
@@ -152,17 +153,18 @@ const SocialLinks = () => {
           classes={{ root: classes.googleBtn }}
           startIcon={<FontAwesomeIcon fontSize="large" icon={faGoogle} />}
           onClick={() => handleLoginClick(googleProvider)}
+          disableFocusRipple
         >
           {isSignupMode ? "Sign Up" : "Login"} with Google
         </Button>
       </Hidden>
       <Hidden smUp>
         <div className={classes.iconBtnContainer}>
-          <IconButton className={classes.bgTwitter}>
-            <TwitterIcon
-              fontSize="large"
-              onClick={() => handleLoginClick(twitterProvider)}
-            />
+          <IconButton
+            className={classes.bgTwitter}
+            onClick={() => handleLoginClick(twitterProvider)}
+          >
+            <TwitterIcon fontSize="large" />
           </IconButton>
         </div>
         <div className={classes.iconBtnContainer}>
