@@ -41,6 +41,10 @@ const initialAuthState = {
   token: localStorage.getItem("token"),
   mode: "signup",
   formIsValid: false,
+  usernameAccordionIsOpen: false,
+  emailAccordionIsOpen: false,
+  passwordAccordionIsOpen: false,
+  confirmPasswordAccordionIsOpen: false,
 };
 
 const authSlice = createSlice({
@@ -124,6 +128,27 @@ const authSlice = createSlice({
     setPasswordHasDigit(state) {
       state.passwordHasDigit = true;
     },
+    openUsernameAccordion(state) {
+      state.usernameAccordionIsOpen = true;
+    },
+    openEmailAccordion(state) {
+      state.emailAccordionIsOpen = true;
+    },
+    openPasswordAccordion(state) {
+      state.passwordAccordionIsOpen = true;
+    },
+    openConfirmPasswordAccordion(state) {
+      state.confirmPasswordAccordionIsOpen = true;
+    },
+    closeAccordions(state) {
+      state.usernameAccordionIsOpen = false;
+      state.emailAccordionIsOpen = false;
+      state.passwordAccordionIsOpen = false;
+      state.confirmPasswordAccordionIsOpen = false;
+    },
+    // closeUsernameAccordion(state) {
+    //   state.usernameAccordionIsOpen = false;
+    // },
   },
 });
 

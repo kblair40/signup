@@ -15,11 +15,13 @@ import AuthCard from "../UI/AuthCard";
 import FormPopper from "./FormPopper";
 import SocialLinks from "./SocialLinks";
 import { authActions } from "../../store/authSlice";
-import UsernameRule from "./Rules/UsernameRule";
 import EmailRule from "./Rules/EmailRule";
 import PasswordRule from "./Rules/PasswordRule";
 import ConfirmPasswordRule from "./Rules/ConfirmPasswordRule";
-import RulesAccordion from "./Rules/RulesAccordion";
+import UsernameRulesCollapse from "./Rules/UsernameRulesCollapse";
+import EmailRulesCollapse from "./Rules/EmailRulesCollapse";
+import PasswordRulesCollapse from "./Rules/PasswordRulesCollapse";
+import ConfirmPasswordRulesCollapse from "./Rules/ConfirmPasswordRulesCollapse";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -188,12 +190,14 @@ const SignupForm = ({ handleFormSubmit }) => {
   const handleInputblur = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen(false);
+    dispatch(authActions.closeAccordions());
   };
 
   const handleUsernameChange = (e) => {
     const username = e.target.value;
     setHasBeenTouched((state) => ({ ...state, username: true }));
     dispatch(authActions.handleUsernameChange({ username: username }));
+    dispatch(authActions.openUsernameAccordion());
   };
 
   const handleEmailChange = (e) => {
@@ -201,12 +205,14 @@ const SignupForm = ({ handleFormSubmit }) => {
     setHasBeenTouched((state) => ({ ...state, email: true }));
 
     dispatch(authActions.handleEmailChange({ email: email }));
+    dispatch(authActions.openEmailAccordion());
   };
 
   const handlePasswordChange = (e) => {
     setHasBeenTouched((state) => ({ ...state, password: true }));
 
     dispatch(authActions.handlePasswordChange({ password: e.target.value }));
+    dispatch(authActions.openPasswordAccordion());
   };
 
   const handleConfirmPasswordChange = (e) => {
@@ -216,6 +222,7 @@ const SignupForm = ({ handleFormSubmit }) => {
         confirmPassword: e.target.value,
       })
     );
+    dispatch(authActions.openConfirmPasswordAccordion());
   };
 
   const handleClickShowPassword = () => {
@@ -289,7 +296,7 @@ const SignupForm = ({ handleFormSubmit }) => {
               value={usernameInput}
             />
             <Hidden mdUp>
-              <UsernameRule />
+              <UsernameRulesCollapse />
             </Hidden>
           </div>
           <div className={classes.formRow}>
@@ -324,7 +331,8 @@ const SignupForm = ({ handleFormSubmit }) => {
               value={emailInput}
             />
             <Hidden mdUp>
-              <EmailRule />
+              {/* <EmailRule /> */}
+              <EmailRulesCollapse />
             </Hidden>
           </div>
           <div className={classes.formRow}>
@@ -370,7 +378,8 @@ const SignupForm = ({ handleFormSubmit }) => {
               value={passwordInput}
             />
             <Hidden mdUp>
-              <PasswordRule />
+              {/* <PasswordRule /> */}
+              <PasswordRulesCollapse />
             </Hidden>
           </div>
           <div className={classes.formRow}>
@@ -414,7 +423,8 @@ const SignupForm = ({ handleFormSubmit }) => {
               value={confirmPasswordInput}
             />
             <Hidden mdUp>
-              <ConfirmPasswordRule />
+              {/* <ConfirmPasswordRule /> */}
+              <ConfirmPasswordRulesCollapse />
             </Hidden>
           </div>
 
@@ -437,7 +447,6 @@ const SignupForm = ({ handleFormSubmit }) => {
             Already have an account? <Link to="/login">Login</Link>
           </p>
         </div>
-        <RulesAccordion />
       </div>
     </AuthCard>
   );
