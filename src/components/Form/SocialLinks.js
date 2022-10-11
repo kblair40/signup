@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
   [theme.breakpoints.down("xs")]: {
     socialLinksContainer: {
-      top: "2rem",
+      // top: "2rem",
       justifyContent: "space-evenly",
       alignItems: "center",
       "& button": {

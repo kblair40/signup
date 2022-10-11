@@ -1,7 +1,16 @@
 TODOS:
-    3. force auto logout after set time
     4. manage loading state in FormContainer;
-   
+    5. If confirm password is invalid, then password is updated to match 
+        confirm password, set confirm password to use valid styles
+            - This is mostly done.  The case that needs fixing is if password is updated        
+                to match confirm password, but then again changed to not match confirm password.
+                Confirm password is not updating to invalid styles
+    6. Email Address already in use is needed as an error message on signup form.
+        - Probably other errors are needing to be displayed
+        - See if firebase can send list of users and user info
+            - I'll probably have to push user email addresses to realtime db and check there on email input blur
+                - render error message if email input by user is in realtime db
+
    
    
 COLORS:

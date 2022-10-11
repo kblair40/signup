@@ -2,6 +2,8 @@ import React from "react";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Paper from "@material-ui/core/Paper";
 import Collapse from "@material-ui/core/Collapse";
+import Tooltip from "@material-ui/core/Tooltip";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import { useSelector } from "react-redux";
@@ -27,6 +29,12 @@ const useStyles = makeStyles({
     fontSize: ".7rem",
     margin: 0,
     marginLeft: ".5rem",
+  },
+  helpIcon: {
+    marginLeft: ".25rem",
+    "&:hover": {
+      cursor: "help",
+    },
   },
 });
 
@@ -58,6 +66,15 @@ const UsernameRulesCollapse = (props) => {
               <p className={classes.rule}>
                 Username does not include any invalid characters
               </p>
+              <Tooltip
+                title="Only letters and numbers are permitted"
+                placement="right"
+              >
+                <HelpOutlineIcon
+                  className={classes.helpIcon}
+                  fontSize="small"
+                />
+              </Tooltip>
             </ListItem>
           </List>
         </Paper>

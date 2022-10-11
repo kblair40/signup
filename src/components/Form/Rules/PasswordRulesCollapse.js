@@ -81,7 +81,7 @@ const PasswordRulesCollapse = (props) => {
               </p>
               <Tooltip
                 title={`Only letters, numbers and the following characters are allowed: ${validChars}`}
-                plaement="right"
+                placement="right"
               >
                 <HelpOutlineIcon
                   className={classes.helpIcon}

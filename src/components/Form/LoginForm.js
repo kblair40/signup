@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    // border: "1px solid green",
   },
   form: {
     width: "100%",
@@ -171,7 +172,9 @@ const LoginForm = ({ handleFormSubmit }) => {
               </Button>
             </div>
           </form>
+
           <SocialLinks />
+
           <div className={classes.formRow}>
             <p className={classes.linkToAccount}>
               Don't have an account?{" "}

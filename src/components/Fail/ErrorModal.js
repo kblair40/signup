@@ -77,7 +77,6 @@ const ErrorModal = () => {
           classes={{ root: classes.errorDialogBtn }}
           onClick={handleClose}
           variant="contained"
-          // fullWidth
         >
           Close
         </Button>
